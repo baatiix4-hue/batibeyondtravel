@@ -1,0 +1,1521 @@
+<!-- Chosen Palette: Warm Gold & Emerald Ethiopian Harmony -->
+<!-- Application Structure Plan: Single-page travel agency platform featuring an expanded flight inquiry engine with Round-Trip options and passenger breakdown (Adults, Children, Infants), interactive world time zone converter tool, structured travel insights and packing checklists, multi-language engine (EN, AM, TI, OM, SO), social media links (Telegram, Facebook, TikTok), dynamic ETB route rates, high-res destination imagery, and built-in JSON-LD SEO schema for Google search optimization. -->
+<!-- Visualization & Content Choices: Clean Tailwind CSS, Unicode icons, dynamic DOM state management, interactive Vanilla JS time converter, JSON-LD microdata for Google Search indexing. Strictly NO SVG graphics or Mermaid JS. -->
+<!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <!-- Primary Meta Tags for Google SEO -->
+  <title>Bati Beyond Travel Agency | Flight Booking, ETB Rates & Travel Desk Addis Ababa</title>
+  <meta name="description" content="Bati Beyond Travel Agency in Addis Ababa (Bole Bulbula Mariyam Mazoriya). Book Ethiopian Airlines, flydubai, Qatar Airways, and Emirates domestic and international flight tickets in Birr (ETB). Live Telegram inquiry desk." />
+  <meta name="keywords" content="Bati Beyond Travel, Ethiopia travel agency, flight booking Addis Ababa, Ethiopian Airlines ticket price ETB, Lalibela flights, Dubai flydubai ticket price, ticket office Bole Bulbula, Ethiopian diaspora travel" />
+  <meta name="author" content="Bati Beyond Travel Agency" />
+  <meta name="robots" content="index, follow" />
+
+  <!-- Open Graph / Social Media Sharing -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Bati Beyond Travel Agency | Flight Booking & Regional Tours" />
+  <meta property="og:description" content="Book cheap domestic and international flight tickets in Ethiopian Birr (ETB). Verified seat availability with instant Telegram assistance." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1548625361-193498871891?auto=format&fit=crop&w=1200&q=80" />
+
+  <!-- Google JSON-LD LocalBusiness & TravelAgency Structured Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TravelAgency",
+    "name": "Bati Beyond Travel Agency",
+    "image": "https://images.unsplash.com/photo-1548625361-193498871891?auto=format&fit=crop&w=800&q=80",
+    "telephone": ["+251925791010", "+251957057373"],
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Bole Bulbula Mariyam Mazoriya",
+      "addressLocality": "Addis Ababa",
+      "addressCountry": "ET"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 8.9806,
+      "longitude": 38.7830
+    },
+    "openingHoursSpecification": {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      "opens": "08:30",
+      "closes": "19:30"
+    },
+    "sameAs": [
+      "https://t.me/BatiBeyondBooking"
+    ],
+    "priceRange": "$$"
+  }
+  </script>
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,400&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brandGreen: '#0F5132',
+            brandGreenHover: '#198754',
+            brandGold: '#D4AF37',
+            brandGoldHover: '#b89726',
+            brandDark: '#121820',
+          },
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            serif: ['Playfair Display', 'serif'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #F8F9FA;
+      color: #333333;
+    }
+    .hero-bg {
+      background: linear-gradient(rgba(15, 81, 50, 0.82), rgba(18, 24, 32, 0.90)), 
+                  url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+    }
+    .btn-telegram {
+      background-color: #229ED9;
+      color: #ffffff;
+      font-weight: 700;
+      padding: 10px 20px;
+      border-radius: 9999px;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .btn-telegram:hover {
+      background-color: #1a83b8;
+      transform: translateY(-1px);
+    }
+    .route-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .route-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 24px rgba(0,0,0,0.08);
+    }
+    .tab-btn.active {
+      background-color: #0F5132;
+      color: #ffffff;
+      border-color: #0F5132;
+    }
+  </style>
+</head>
+<body class="font-sans antialiased">
+
+  <!-- Top Announcement Bar & Social Media Links -->
+  <div class="bg-brandDark text-gray-300 text-xs md:text-sm py-2 px-4">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-2">
+      <div class="flex items-center gap-2 flex-wrap justify-center">
+        <span>📍 Bole Bulbula Mariyam Mazoriya, Addis Ababa, Ethiopia</span>
+        <span class="hidden md:inline">|</span>
+        <span>📞 Hotline: +251 925 79 10 10 / +251 957 05 73 73</span>
+      </div>
+      
+      <div class="flex items-center gap-4 flex-wrap justify-center">
+        <!-- Social Media Shortcuts -->
+        <div class="flex items-center gap-2">
+          <a href="https://t.me/BatiBeyondBooking" target="_blank" class="hover:text-brandGold transition font-semibold" title="Telegram">💬 Telegram Desk</a>
+          <a href="https://facebook.com" target="_blank" rel="noopener" class="hover:text-brandGold transition" title="Facebook">📘 Facebook</a>
+          <a href="https://tiktok.com" target="_blank" rel="noopener" class="hover:text-brandGold transition" title="TikTok">🎵 TikTok</a>
+        </div>
+
+        <!-- Language Switcher Dropdown -->
+        <div class="flex items-center gap-1 bg-white/10 px-2 py-1 rounded border border-white/20">
+          <span class="text-xs text-brandGold">🌐</span>
+          <select id="languageSelect" onchange="changeLanguage(this.value)" class="bg-transparent text-white text-xs font-semibold focus:outline-none cursor-pointer">
+            <option value="en" class="text-black">English</option>
+            <option value="am" class="text-black">አማርኛ (Amharic)</option>
+            <option value="ti" class="text-black">ትግርኛ (Tigrinya)</option>
+            <option value="om" class="text-black">Afaan Oromoo</option>
+            <option value="so" class="text-black">Af-Soomaali</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Header Navigation -->
+  <header class="bg-white sticky top-0 z-50 shadow-sm border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+      <a href="#" class="font-serif text-2xl font-bold text-brandGreen">
+        Bati <span class="text-brandGold">Beyond</span> Travel
+      </a>
+      
+      <nav class="hidden lg:flex items-center gap-6 font-semibold text-sm">
+        <a href="#about" class="hover:text-brandGold transition" data-i18n="nav_about">About Us</a>
+        <a href="#domestic" class="hover:text-brandGold transition" data-i18n="nav_domestic">Domestic Flights</a>
+        <a href="#international" class="hover:text-brandGold transition" data-i18n="nav_international">International Flights</a>
+        <a href="#insights" class="hover:text-brandGold transition" data-i18n="nav_insights">Travel Insights & Guides</a>
+        <a href="#timeconverter" class="hover:text-brandGold transition" data-i18n="nav_time">Time Converter</a>
+        <a href="#contact" class="hover:text-brandGold transition" data-i18n="nav_contact">Contact Office</a>
+      </nav>
+
+      <a href="#search-section" class="bg-brandGold hover:bg-brandGoldHover text-black font-bold px-5 py-2.5 rounded-full text-sm transition shadow-sm" data-i18n="nav_book">
+        Book Flight
+      </a>
+    </div>
+  </header>
+
+  <!-- Hero Banner -->
+  <section class="hero-bg text-white py-16 md:py-24 px-4 text-center">
+    <div class="max-w-4xl mx-auto">
+      <span class="inline-block bg-brandGold/20 border border-brandGold/40 text-brandGold font-bold text-xs uppercase px-3 py-1 rounded-full mb-3" data-i18n="hero_badge">
+        ✨ Official Agency Ticket Desk • Addis Ababa
+      </span>
+      <h1 class="font-serif text-3xl md:text-5xl font-extrabold leading-tight mb-4" data-i18n="hero_title">
+        Your Seamless Bridge From Ethiopia To The World
+      </h1>
+      <p class="text-gray-200 text-sm md:text-lg mb-6 max-w-2xl mx-auto" data-i18n="hero_subtitle">
+        Book fast, verified domestic flights across Ethiopia and non-stop international routes with Ethiopian Airlines, Emirates, Qatar Airways, and flydubai in Birr (ETB).
+      </p>
+      
+      <!-- Social Media Buttons Header -->
+      <div class="flex justify-center items-center gap-3 flex-wrap">
+        <a href="https://t.me/BatiBeyondBooking" target="_blank" class="btn-telegram text-xs md:text-sm">
+          <span>💬 Chat on Telegram Desk (@BatiBeyondBooking)</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Comprehensive Flight Booking Desk Section -->
+  <div class="max-w-6xl mx-auto px-4 -mt-12 relative z-20" id="search-section">
+    <div class="bg-white rounded-xl shadow-xl p-6 md:p-8 border border-gray-100">
+      <div class="mb-6 pb-3 border-b border-gray-100 flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
+        <div>
+          <h2 class="font-serif text-xl font-bold text-brandGreen" data-i18n="search_heading">✈️ Real-Time Ticket Inquiry & Booking Desk</h2>
+          <p class="text-xs text-gray-500" data-i18n="search_subheading">Select your trip type, passenger count, and route to check live seat inventory.</p>
+        </div>
+        <span class="text-xs bg-emerald-100 text-brandGreen font-bold px-3 py-1.5 rounded-full" data-i18n="search_badge">Instant Telegram Ticket Desk</span>
+      </div>
+
+      <form id="flightForm" onsubmit="handleFlightSearch(event)">
+        <!-- Trip Type Controls (One-Way vs Round-Trip) -->
+        <div class="flex items-center gap-6 mb-4">
+          <label class="inline-flex items-center cursor-pointer">
+            <input type="radio" name="tripType" value="oneway" checked onchange="toggleTripType()" class="text-brandGreen focus:ring-brandGreen h-4 w-4" />
+            <span class="ml-2 text-xs md:text-sm font-bold text-gray-700" data-i18n="trip_oneway">One-Way</span>
+          </label>
+          <label class="inline-flex items-center cursor-pointer">
+            <input type="radio" name="tripType" value="roundtrip" onchange="toggleTripType()" class="text-brandGreen focus:ring-brandGreen h-4 w-4" />
+            <span class="ml-2 text-xs md:text-sm font-bold text-gray-700" data-i18n="trip_roundtrip">Round-Trip</span>
+          </label>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+          <!-- Flight Category -->
+          <div>
+            <label for="flightType" class="block text-xs font-bold text-gray-500 uppercase mb-1" data-i18n="label_flight_type">Category</label>
+            <select id="flightType" onchange="toggleRouteCategory()" class="w-full p-3 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brandGreen focus:outline-none bg-white">
+              <option value="domestic" data-i18n="opt_domestic">Domestic (Ethiopia)</option>
+              <option value="international" data-i18n="opt_international">International (Global)</option>
+            </select>
+          </div>
+
+          <!-- Origin -->
+          <div>
+            <label for="originCity" class="block text-xs font-bold text-gray-500 uppercase mb-1" data-i18n="label_origin">Origin</label>
+            <select id="originCity" class="w-full p-3 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brandGreen focus:outline-none bg-white">
+              <option value="Addis Ababa (ADD)">Addis Ababa (ADD)</option>
+            </select>
+          </div>
+
+          <!-- Destination -->
+          <div>
+            <label for="destCity" class="block text-xs font-bold text-gray-500 uppercase mb-1" data-i18n="label_destination">Destination</label>
+            <select id="destCity" class="w-full p-3 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brandGreen focus:outline-none bg-white">
+              <!-- JS Populates Destinations -->
+            </select>
+          </div>
+
+          <!-- Departure Date -->
+          <div>
+            <label for="flightDate" class="block text-xs font-bold text-gray-500 uppercase mb-1" data-i18n="label_date">Departure Date</label>
+            <input type="date" id="flightDate" required class="w-full p-3 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brandGreen focus:outline-none" />
+          </div>
+
+          <!-- Return Date (Dynamically toggled) -->
+          <div id="returnDateContainer" class="hidden">
+            <label for="returnDate" class="block text-xs font-bold text-gray-500 uppercase mb-1" data-i18n="label_return_date">Return Date</label>
+            <input type="date" id="returnDate" class="w-full p-3 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-brandGreen focus:outline-none" />
+          </div>
+        </div>
+
+        <!-- Passenger Breakdown Dropdown Row -->
+        <div class="mt-4 pt-4 border-t border-gray-100 grid grid-cols-1 md:grid-cols-4 gap-4 items-center">
+          <div>
+            <label class="block text-xs font-bold text-gray-500 uppercase mb-1" data-i18n="lbl_passengers">Passengers</label>
+            <div class="p-3 border border-gray-300 rounded-lg text-sm bg-gray-50 font-bold text-gray-700" id="passengerSummaryDisplay">
+              1 Adult, 0 Child, 0 Infant
+            </div>
+          </div>
+
+          <!-- Adult Counter -->
+          <div>
+            <label for="adultCount" class="block text-xs text-gray-500 mb-1" data-i18n="lbl_adults">Adults (12+ yrs)</label>
+            <select id="adultCount" onchange="updatePassengerSummary()" class="w-full p-2.5 border border-gray-300 rounded-lg text-xs bg-white">
+              <option value="1">1 Adult</option>
+              <option value="2">2 Adults</option>
+              <option value="3">3 Adults</option>
+              <option value="4">4 Adults</option>
+              <option value="5+">5+ Adults</option>
+            </select>
+          </div>
+
+          <!-- Children Counter -->
+          <div>
+            <label for="childCount" class="block text-xs text-gray-500 mb-1" data-i18n="lbl_children">Children (2-11 yrs)</label>
+            <select id="childCount" onchange="updatePassengerSummary()" class="w-full p-2.5 border border-gray-300 rounded-lg text-xs bg-white">
+              <option value="0">0 Children</option>
+              <option value="1">1 Child</option>
+              <option value="2">2 Children</option>
+              <option value="3">3 Children</option>
+            </select>
+          </div>
+
+          <!-- Infants Counter -->
+          <div>
+            <label for="infantCount" class="block text-xs text-gray-500 mb-1" data-i18n="lbl_infants">Infants (&lt;2 yrs)</label>
+            <select id="infantCount" onchange="updatePassengerSummary()" class="w-full p-2.5 border border-gray-300 rounded-lg text-xs bg-white">
+              <option value="0">0 Infants</option>
+              <option value="1">1 Infant</option>
+              <option value="2">2 Infants</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="mt-6">
+          <button type="submit" class="btn-telegram w-full py-3.5 text-base shadow-md">
+            <span data-i18n="btn_check_live">✈️ Check Live Seat & Rates on Telegram Desk</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Mandatory Price Disclaimer Banner -->
+  <section class="max-w-6xl mx-auto px-4 mt-8">
+    <div class="bg-amber-50 border-l-4 border-brandGold p-4 rounded-r-lg text-amber-900 text-xs md:text-sm flex items-start gap-3 shadow-sm">
+      <span class="text-lg">ℹ️</span>
+      <div>
+        <strong class="font-bold" data-i18n="disc_title">Important Price & Guidance Disclaimer:</strong>
+        <span data-i18n="disc_body">All ticket prices listed on this page are estimated starting prices provided strictly for customer guidance and reference. Final ticket fares fluctuate dynamically based on airline fare class, season, departure dates, seat tier, and live availability. For exact live rates and instant booking, please contact our agents via Telegram or telephone.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Airline Partner Badges -->
+  <section class="max-w-6xl mx-auto px-4 py-6">
+    <div class="bg-white rounded-xl p-5 shadow-sm border border-gray-100 flex flex-wrap justify-around items-center gap-4 text-center">
+      <span class="font-bold text-gray-700 text-xs md:text-sm">✈️ Ethiopian Airlines (ET)</span>
+      <span class="font-bold text-gray-700 text-xs md:text-sm">✈️ flydubai (FZ)</span>
+      <span class="font-bold text-gray-700 text-xs md:text-sm">✈️ Qatar Airways (QR)</span>
+      <span class="font-bold text-gray-700 text-xs md:text-sm">✈️ Emirates (EK)</span>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="max-w-6xl mx-auto px-4 py-8" id="about">
+    <div class="bg-white rounded-xl p-8 md:p-10 shadow-sm border border-gray-100">
+      <div class="text-center max-w-2xl mx-auto mb-8">
+        <h2 class="font-serif text-2xl md:text-3xl font-bold text-brandGreen" data-i18n="about_title">About Bati Beyond Travel</h2>
+        <p class="text-gray-500 text-sm mt-1" data-i18n="about_subtitle">Ethiopia's trusted full-service travel and ticket reservation desk.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-gray-700 leading-relaxed text-sm md:text-base">
+        <div>
+          <h3 class="font-bold text-lg text-brandDark mb-2" data-i18n="mission_title">Our Mission</h3>
+          <p data-i18n="mission_body">
+            Bati Beyond Travel was established to make domestic and international air travel accessible, effortless, and transparent for travelers in Ethiopia and the diaspora. Located at Bole Bulbula Mariyam Mazoriya, we specialize in providing verified fare classes in Ethiopian Birr (ETB), instant itinerary confirmation, and dedicated agency assistance.
+          </p>
+        </div>
+        <div>
+          <h3 class="font-bold text-lg text-brandDark mb-2" data-i18n="guarantee_title">Our Service Guarantee</h3>
+          <p data-i18n="guarantee_body">
+            Whether you are booking a pilgrimage to Lalibela, a business trip to Dubai, or transiting through Doha with Qatar Airways, our booking team monitors seat inventory in real time to ensure you get the best fare and luggage terms available.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Domestic Routes Section -->
+  <section class="max-w-6xl mx-auto px-4 py-8" id="domestic">
+    <div class="mb-8 text-center">
+      <h2 class="font-serif text-2xl md:text-3xl font-bold text-brandGreen" data-i18n="dom_section_title">Domestic Flights Across Ethiopia</h2>
+      <p class="text-gray-500 text-sm" data-i18n="dom_section_subtitle">Daily scheduled non-stop flights operated by Ethiopian Airlines. (Starting Prices Shown)</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Lalibela -->
+      <div class="bg-white rounded-xl shadow-sm border-t-4 border-brandGreen overflow-hidden route-card flex flex-col justify-between">
+        <div class="p-6">
+          <div class="flex justify-between items-start mb-3">
+            <h3 class="font-bold text-base">Addis ➔ Lalibela (LLI)</h3>
+            <span class="text-xs font-semibold bg-emerald-50 text-brandGreen px-2 py-1 rounded">Ethiopian</span>
+          </div>
+          <p class="text-xs text-gray-600 mb-4" data-i18n="route_lani_desc">Direct flights to the 12th-century rock-cut monolithic churches.</p>
+          <div class="text-xs font-bold text-gray-400 uppercase tracking-wide" data-i18n="lbl_start_price">Starting Price</div>
+          <div class="text-2xl font-extrabold text-brandGreen">8,870 ETB</div>
+          <div class="text-xs text-gray-400 mt-1" data-i18n="lbl_oneway_est">*One-way base fare estimate</div>
+        </div>
+        <div class="p-4 bg-gray-50 border-t border-gray-100">
+          <button onclick="quickTelegramInquiry('Domestic', 'Addis Ababa (ADD)', 'Lalibela (LLI)')" class="btn-telegram w-full text-xs">
+            <span data-i18n="btn_inquire_tg">Inquire on Telegram</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Bahir Dar -->
+      <div class="bg-white rounded-xl shadow-sm border-t-4 border-brandGreen overflow-hidden route-card flex flex-col justify-between">
+        <div class="p-6">
+          <div class="flex justify-between items-start mb-3">
+            <h3 class="font-bold text-base">Addis ➔ Bahir Dar (BJR)</h3>
+            <span class="text-xs font-semibold bg-emerald-50 text-brandGreen px-2 py-1 rounded">Ethiopian</span>
+          </div>
+          <p class="text-xs text-gray-600 mb-4" data-i18n="route_bjr_desc">Gateway to Lake Tana island monasteries and the Blue Nile Falls.</p>
+          <div class="text-xs font-bold text-gray-400 uppercase tracking-wide" data-i18n="lbl_start_price">Starting Price</div>
+          <div class="text-2xl font-extrabold text-brandGreen">8,810 ETB</div>
+          <div class="text-xs text-gray-400 mt-1" data-i18n="lbl_oneway_est">*One-way base fare estimate</div>
+        </div>
+        <div class="p-4 bg-gray-50 border-t border-gray-100">
+          <button onclick="quickTelegramInquiry('Domestic', 'Addis Ababa (ADD)', 'Bahir Dar (BJR)')" class="btn-telegram w-full text-xs">
+            <span data-i18n="btn_inquire_tg">Inquire on Telegram</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Gondar -->
+      <div class="bg-white rounded-xl shadow-sm border-t-4 border-brandGreen overflow-hidden route-card flex flex-col justify-between">
+        <div class="p-6">
+          <div class="flex justify-between items-start mb-3">
+            <h3 class="font-bold text-base">Addis ➔ Gondar (GDQ)</h3>
+            <span class="text-xs font-semibold bg-emerald-50 text-brandGreen px-2 py-1 rounded">Ethiopian</span>
+          </div>
+          <p class="text-xs text-gray-600 mb-4" data-i18n="route_gdq_desc">Visit Fasil Ghebbi royal castles and gateway to Simien Mountains.</p>
+          <div class="text-xs font-bold text-gray-400 uppercase tracking-wide" data-i18n="lbl_start_price">Starting Price</div>
+          <div class="text-2xl font-extrabold text-brandGreen">9,500 ETB</div>
+          <div class="text-xs text-gray-400 mt-1" data-i18n="lbl_oneway_est">*One-way base fare estimate</div>
+        </div>
+        <div class="p-4 bg-gray-50 border-t border-gray-100">
+          <button onclick="quickTelegramInquiry('Domestic', 'Addis Ababa (ADD)', 'Gondar (GDQ)')" class="btn-telegram w-full text-xs">
+            <span data-i18n="btn_inquire_tg">Inquire on Telegram</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Dire Dawa -->
+      <div class="bg-white rounded-xl shadow-sm border-t-4 border-brandGreen overflow-hidden route-card flex flex-col justify-between">
+        <div class="p-6">
+          <div class="flex justify-between items-start mb-3">
+            <h3 class="font-bold text-base">Addis ➔ Dire Dawa (DIR)</h3>
+            <span class="text-xs font-semibold bg-emerald-50 text-brandGreen px-2 py-1 rounded">Ethiopian</span>
+          </div>
+          <p class="text-xs text-gray-600 mb-4" data-i18n="route_dir_desc">Connect to the historical walled trade city of Harar Jugol.</p>
+          <div class="text-xs font-bold text-gray-400 uppercase tracking-wide" data-i18n="lbl_start_price">Starting Price</div>
+          <div class="text-2xl font-extrabold text-brandGreen">8,580 ETB</div>
+          <div class="text-xs text-gray-400 mt-1" data-i18n="lbl_oneway_est">*One-way base fare estimate</div>
+        </div>
+        <div class="p-4 bg-gray-50 border-t border-gray-100">
+          <button onclick="quickTelegramInquiry('Domestic', 'Addis Ababa (ADD)', 'Dire Dawa (DIR)')" class="btn-telegram w-full text-xs">
+            <span data-i18n="btn_inquire_tg">Inquire on Telegram</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Mekelle -->
+      <div class="bg-white rounded-xl shadow-sm border-t-4 border-brandGreen overflow-hidden route-card flex flex-col justify-between">
+        <div class="p-6">
+          <div class="flex justify-between items-start mb-3">
+            <h3 class="font-bold text-base">Addis ➔ Mekelle (MQX)</h3>
+            <span class="text-xs font-semibold bg-emerald-50 text-brandGreen px-2 py-1 rounded">Ethiopian</span>
+          </div>
+          <p class="text-xs text-gray-600 mb-4" data-i18n="route_mqx_desc">Access Tigray region, Gheralta rock churches, and Danakil tours.</p>
+          <div class="text-xs font-bold text-gray-400 uppercase tracking-wide" data-i18n="lbl_start_price">Starting Price</div>
+          <div class="text-2xl font-extrabold text-brandGreen">9,905 ETB</div>
+          <div class="text-xs text-gray-400 mt-1" data-i18n="lbl_oneway_est">*One-way base fare estimate</div>
+        </div>
+        <div class="p-4 bg-gray-50 border-t border-gray-100">
+          <button onclick="quickTelegramInquiry('Domestic', 'Addis Ababa (ADD)', 'Mekelle (MQX)')" class="btn-telegram w-full text-xs">
+            <span data-i18n="btn_inquire_tg">Inquire on Telegram</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Arba Minch -->
+      <div class="bg-white rounded-xl shadow-sm border-t-4 border-brandGreen overflow-hidden route-card flex flex-col justify-between">
+        <div class="p-6">
+          <div class="flex justify-between items-start mb-3">
+            <h3 class="font-bold text-base">Addis ➔ Arba Minch (AMH)</h3>
+            <span class="text-xs font-semibold bg-emerald-50 text-brandGreen px-2 py-1 rounded">Ethiopian</span>
+          </div>
+          <p class="text-xs text-gray-600 mb-4" data-i18n="route_amh_desc">Discover Nechisar National Park and Rift Valley lake resorts.</p>
+          <div class="text-xs font-bold text-gray-400 uppercase tracking-wide" data-i18n="lbl_start_price">Starting Price</div>
+          <div class="text-2xl font-extrabold text-brandGreen">8,895 ETB</div>
+          <div class="text-xs text-gray-400 mt-1" data-i18n="lbl_oneway_est">*One-way base fare estimate</div>
+        </div>
+        <div class="p-4 bg-gray-50 border-t border-gray-100">
+          <button onclick="quickTelegramInquiry('Domestic', 'Addis Ababa (ADD)', 'Arba Minch (AMH)')" class="btn-telegram w-full text-xs">
+            <span data-i18n="btn_inquire_tg">Inquire on Telegram</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- International Routes Section -->
+  <section class="max-w-6xl mx-auto px-4 py-8" id="international">
+    <div class="mb-8 text-center">
+      <h2 class="font-serif text-2xl md:text-3xl font-bold text-brandGreen" data-i18n="int_section_title">International Flights Departing & Arriving Addis</h2>
+      <p class="text-gray-500 text-sm" data-i18n="int_section_subtitle">Top Global Partners: Ethiopian Airlines, flydubai, Qatar Airways, Emirates.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Dubai - flydubai One-Way -->
+      <div class="bg-white rounded-xl shadow-sm border-t-4 border-amber-500 overflow-hidden route-card flex flex-col justify-between">
+        <div class="p-6">
+          <div class="flex justify-between items-start mb-3">
+            <h3 class="font-bold text-base">Addis ➔ Dubai (flydubai)</h3>
+            <span class="text-xs font-semibold bg-amber-50 text-amber-700 px-2 py-1 rounded">flydubai (FZ)</span>
+          </div>
+          <p class="text-xs text-gray-600 mb-2" data-i18n="route_dxb_oneway_desc">Direct flydubai non-stop flight to Dubai International Airport (DXB).</p>
+          <div class="text-xs font-bold text-gray-400 uppercase tracking-wide" data-i18n="lbl_oneway_start_price">One-Way Starting Price</div>
+          <div class="text-2xl font-extrabold text-brandGreen">52,000 ETB</div>
+          <div class="text-xs text-gray-400 mt-1" data-i18n="lbl_tier_est">*Subject to flight dates and seat tier</div>
+        </div>
+        <div class="p-4 bg-gray-50 border-t border-gray-100">
+          <button onclick="quickTelegramInquiry('International', 'Addis Ababa (ADD)', 'Dubai (flydubai One-Way)')" class="btn-telegram w-full text-xs">
+            <span data-i18n="btn_inquire_tg">Inquire on Telegram</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Dubai - flydubai / ET Roundtrip -->
+      <div class="bg-white rounded-xl shadow-sm border-t-4 border-amber-500 overflow-hidden route-card flex flex-col justify-between">
+        <div class="p-6">
+          <div class="flex justify-between items-start mb-3">
+            <h3 class="font-bold text-base">Addis ➔ Dubai (Roundtrip)</h3>
+            <span class="text-xs font-semibold bg-amber-50 text-amber-700 px-2 py-1 rounded">flydubai / ET</span>
+          </div>
+          <p class="text-xs text-gray-600 mb-2" data-i18n="route_dxb_rt_desc">Roundtrip ticket packages available on flydubai and Ethiopian Airlines.</p>
+          <div class="text-xs font-bold text-gray-400 uppercase tracking-wide" data-i18n="lbl_rt_start_price">Roundtrip Starting Price</div>
+          <div class="text-2xl font-extrabold text-brandGreen">78,000 ETB</div>
+          <div class="text-xs text-gray-400 mt-1" data-i18n="lbl_fz_rt_est">*flydubai roundtrip base estimate</div>
+        </div>
+        <div class="p-4 bg-gray-50 border-t border-gray-100">
+          <button onclick="quickTelegramInquiry('International', 'Addis Ababa (ADD)', 'Dubai (Roundtrip)')" class="btn-telegram w-full text-xs">
+            <span data-i18n="btn_inquire_tg">Inquire on Telegram</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- London / Europe - Qatar Airways -->
+      <div class="bg-white rounded-xl shadow-sm border-t-4 border-purple-800 overflow-hidden route-card flex flex-col justify-between">
+        <div class="p-6">
+          <div class="flex justify-between items-start mb-3">
+            <h3 class="font-bold text-base">Addis ➔ London (Qatar)</h3>
+            <span class="text-xs font-semibold bg-purple-50 text-purple-800 px-2 py-1 rounded">Qatar Airways</span>
+          </div>
+          <p class="text-xs text-gray-600 mb-2" data-i18n="route_lhr_desc">Connect to London and Europe with Qatar Airways via Hamad Airport.</p>
+          <div class="text-xs font-bold text-gray-400 uppercase tracking-wide" data-i18n="lbl_oneway_start_price">One-Way Starting Price</div>
+          <div class="text-2xl font-extrabold text-brandGreen">68,000 ETB</div>
+          <div class="text-xs text-gray-400 mt-1" data-i18n="lbl_qr_rate_est">*One-way Qatar Airways rate estimate</div>
+        </div>
+        <div class="p-4 bg-gray-50 border-t border-gray-100">
+          <button onclick="quickTelegramInquiry('International', 'Addis Ababa (ADD)', 'London (Qatar Airways)')" class="btn-telegram w-full text-xs">
+            <span data-i18n="btn_inquire_tg">Inquire on Telegram</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- World Time Zone Converter for Travelers -->
+  <section class="max-w-6xl mx-auto px-4 py-8" id="timeconverter">
+    <div class="bg-gradient-to-r from-brandDark to-gray-800 text-white rounded-2xl p-6 md:p-10 shadow-lg">
+      <div class="text-center max-w-2xl mx-auto mb-6">
+        <span class="text-brandGold text-xs font-bold uppercase tracking-wider">🕒 Traveler Utility Tool</span>
+        <h2 class="font-serif text-2xl md:text-3xl font-bold mt-1" data-i18n="time_tool_title">Global Flight Time Zone Converter</h2>
+        <p class="text-gray-300 text-xs md:text-sm mt-1" data-i18n="time_tool_subtitle">Calculate local departure and arrival times between Addis Ababa (EAT) and destination cities worldwide.</p>
+      </div>
+
+      <div class="bg-white/10 rounded-xl p-6 border border-white/10 grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
+        <!-- City 1: Addis Ababa -->
+        <div class="bg-black/30 p-4 rounded-lg text-center">
+          <div class="text-brandGold text-xs font-bold uppercase" data-i18n="lbl_origin_tz">Origin Base</div>
+          <div class="font-bold text-lg text-white">Addis Ababa, Ethiopia</div>
+          <div class="text-xs text-gray-300">GMT+3 (East Africa Time)</div>
+          <div id="addisLiveTime" class="text-2xl font-extrabold text-emerald-400 mt-2">12:00 PM</div>
+        </div>
+
+        <!-- Convert Controls -->
+        <div class="text-center space-y-3">
+          <label for="destCityTime" class="block text-xs text-gray-300 font-semibold" data-i18n="lbl_select_dest_tz">Select Destination City</label>
+          <select id="destCityTime" onchange="convertTime()" class="w-full p-2.5 rounded bg-white text-gray-800 text-xs font-bold focus:outline-none">
+            <option value="4">Dubai, UAE (GMT+4)</option>
+            <option value="0">London, UK (GMT+0)</option>
+            <option value="1">Frankfurt / Paris (GMT+1)</option>
+            <option value="-5">Washington D.C. / New York (GMT-5)</option>
+            <option value="8">Beijing / Guangzhou (GMT+8)</option>
+            <option value="3">Nairobi / Jeddah (GMT+3)</option>
+            <option value="3">Istanbul, Turkey (GMT+3)</option>
+          </select>
+          <div id="timeDiffBadge" class="inline-block bg-brandGold text-black font-extrabold text-xs px-3 py-1 rounded-full">
+            Dubai is +1 hour ahead
+          </div>
+        </div>
+
+        <!-- City 2: Converted Time -->
+        <div class="bg-black/30 p-4 rounded-lg text-center">
+          <div class="text-brandGold text-xs font-bold uppercase" data-i18n="lbl_dest_tz">Converted Destination Time</div>
+          <div id="destCityName" class="font-bold text-lg text-white">Dubai, UAE</div>
+          <div id="destTimeOffset" class="text-xs text-gray-300">GMT+4</div>
+          <div id="destLiveTime" class="text-2xl font-extrabold text-brandGold mt-2">01:00 PM</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Travel Insights, Tips, Culture & Packing Checklist -->
+  <section class="max-w-6xl mx-auto px-4 py-8" id="insights">
+    <div class="mb-8 text-center max-w-2xl mx-auto">
+      <h2 class="font-serif text-2xl md:text-3xl font-bold text-brandGreen" data-i18n="insights_title">Travel Insights & Destination Guides</h2>
+      <p class="text-gray-500 text-sm" data-i18n="insights_subtitle">Essential advice, cultural etiquette, and packing checklists for domestic and international journeys.</p>
+    </div>
+
+    <!-- Category Tabs -->
+    <div class="flex justify-center gap-2 mb-6 flex-wrap">
+      <button onclick="switchInsightTab('tips')" id="tab-tips" class="tab-btn active px-4 py-2 text-xs font-bold rounded-full border border-gray-300 transition">
+        💡 <span data-i18n="tab_tips">Essential Travel Tips</span>
+      </button>
+      <button onclick="switchInsightTab('culture')" id="tab-culture" class="tab-btn px-4 py-2 text-xs font-bold rounded-full border border-gray-300 bg-white text-gray-700 transition">
+        🌍 <span data-i18n="tab_culture">Cultural Etiquette</span>
+      </button>
+      <button onclick="switchInsightTab('packing')" id="tab-packing" class="tab-btn px-4 py-2 text-xs font-bold rounded-full border border-gray-300 bg-white text-gray-700 transition">
+        🧳 <span data-i18n="tab_packing">Traveler Packing Checklist</span>
+      </button>
+    </div>
+
+    <!-- Tab Content 1: Travel Tips -->
+    <div id="content-tips" class="bg-white rounded-xl p-6 md:p-8 shadow-sm border border-gray-100">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="border-l-4 border-brandGreen pl-4">
+          <h4 class="font-bold text-brandGreen text-sm mb-1" data-i18n="tip1_title">1. Airport Arrival Timings</h4>
+          <p class="text-xs text-gray-600 leading-relaxed" data-i18n="tip1_desc">For domestic flights at Bole Terminal 1, arrive 2 hours prior to departure. For international departures at Terminal 2, arrive at least 3 to 4 hours earlier to clear security and baggage check.</p>
+        </div>
+        <div class="border-l-4 border-brandGold pl-4">
+          <h4 class="font-bold text-brandGreen text-sm mb-1" data-i18n="tip2_title">2. Passport & Visa Validity</h4>
+          <p class="text-xs text-gray-600 leading-relaxed" data-i18n="tip2_desc">Ensure your passport has at least 6 months validity from your travel date. Check transit visa requirements for layovers in Dubai, Doha, or Istanbul.</p>
+        </div>
+        <div class="border-l-4 border-brandGreen pl-4">
+          <h4 class="font-bold text-brandGreen text-sm mb-1" data-i18n="tip3_title">3. Baggage & Luggage Allowance</h4>
+          <p class="text-xs text-gray-600 leading-relaxed" data-i18n="tip3_desc">Ethiopian Airlines domestic routes standard allowance is usually 20kg to 30kg. flydubai economy tickets vary by fare class. Confirm exact weight allowances with our agents.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab Content 2: Cultural Etiquette -->
+    <div id="content-culture" class="hidden bg-white rounded-xl p-6 md:p-8 shadow-sm border border-gray-100">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="bg-emerald-50 p-4 rounded-lg">
+          <h4 class="font-bold text-brandGreen text-sm mb-2" data-i18n="cult1_title">🇪🇹 Cultural Respect in Historic Ethiopian Cities</h4>
+          <p class="text-xs text-gray-700 leading-relaxed" data-i18n="cult1_desc">When visiting holy heritage sites like Lalibela or Lake Tana monasteries, dress modestly (white shawls or shoulders and knees covered). Remove shoes before stepping into sacred sanctuaries.</p>
+        </div>
+        <div class="bg-amber-50 p-4 rounded-lg">
+          <h4 class="font-bold text-amber-900 text-sm mb-2" data-i18n="cult2_title">🇦🇪 Dubai & GCC Travel Norms</h4>
+          <p class="text-xs text-amber-900 leading-relaxed" data-i18n="cult2_desc">Respect local laws regarding public conduct. Maintain respectful dress in government offices or shopping malls. Ensure medication carried has valid medical prescriptions.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab Content 3: Packing Checklist -->
+    <div id="content-packing" class="hidden bg-white rounded-xl p-6 md:p-8 shadow-sm border border-gray-100">
+      <h4 class="font-bold text-brandGreen text-sm mb-4" data-i18n="pack_title">📋 Essential Traveler Packing Checklist</h4>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-gray-700">
+        <div class="space-y-2">
+          <label class="flex items-center gap-2">
+            <input type="checkbox" checked class="rounded text-brandGreen" />
+            <span data-i18n="pack_item1">Original Passport & E-ticket Printout</span>
+          </label>
+          <label class="flex items-center gap-2">
+            <input type="checkbox" checked class="rounded text-brandGreen" />
+            <span data-i18n="pack_item2">Yellow Fever Vaccination Card (If required)</span>
+          </label>
+        </div>
+        <div class="space-y-2">
+          <label class="flex items-center gap-2">
+            <input type="checkbox" checked class="rounded text-brandGreen" />
+            <span data-i18n="pack_item3">Universal Universal Power Adapter</span>
+          </label>
+          <label class="flex items-center gap-2">
+            <input type="checkbox" checked class="rounded text-brandGreen" />
+            <span data-i18n="pack_item4">Prescription Medications & Doctor Notes</span>
+          </label>
+        </div>
+        <div class="space-y-2">
+          <label class="flex items-center gap-2">
+            <input type="checkbox" checked class="rounded text-brandGreen" />
+            <span data-i18n="pack_item5">Emergency Contact Details & Local Currency</span>
+          </label>
+          <label class="flex items-center gap-2">
+            <input type="checkbox" checked class="rounded text-brandGreen" />
+            <span data-i18n="pack_item6">Warm Clothing for Highland Destinations</span>
+          </label>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fun Facts / Tourist Spotlights Section (Featuring Lalibela Church & Erta Ale Lava Lake) -->
+  <section class="max-w-6xl mx-auto px-4 py-8" id="facts">
+    <div class="mb-8 text-center">
+      <h2 class="font-serif text-2xl md:text-3xl font-bold text-brandGreen" data-i18n="facts_section_title">Explore World Wonders & Historic Destinations</h2>
+      <p class="text-gray-500 text-sm" data-i18n="facts_section_subtitle">Discover fascinating stories behind the iconic places you can fly to with Bati Beyond Travel.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Lalibela Rock Church Image -->
+      <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100">
+        <img src="https://images.unsplash.com/photo-1548625361-193498871891?auto=format&fit=crop&w=800&q=80" alt="Lalibela Bet Giyorgis Rock-Hewn Church" class="w-full h-44 object-cover" />
+        <div class="p-4">
+          <h4 class="font-bold text-brandGreen text-sm mb-1" data-i18n="fact_lani_title">Lalibela: Church of Saint George</h4>
+          <p class="text-xs text-gray-600 leading-relaxed" data-i18n="fact_lani_desc">Carved completely out of solid volcanic rock in the 12th century under King Lalibela, these 11 monolithic churches were sculpted top-down without mortar.</p>
+        </div>
+      </div>
+
+      <!-- Danakil Volcano Image -->
+      <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100">
+        <img src="https://images.unsplash.com/photo-1508739773434-c26b3d09e071?auto=format&fit=crop&w=800&q=80" alt="Erta Ale Active Lava Lake Volcano Danakil" class="w-full h-44 object-cover" />
+        <div class="p-4">
+          <h4 class="font-bold text-brandGreen text-sm mb-1" data-i18n="fact_danakil_title">Danakil & Erta Ale Lava Lake</h4>
+          <p class="text-xs text-gray-600 leading-relaxed" data-i18n="fact_danakil_desc">One of the lowest and hottest places on Earth, Danakil features Erta Ale—one of only six active continuous lava lakes on the entire planet.</p>
+        </div>
+      </div>
+
+      <!-- Burj Khalifa Image -->
+      <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100">
+        <img src="https://images.unsplash.com/photo-1512453979798-5ea266f8880c?auto=format&fit=crop&w=600&q=80" alt="Dubai Iconic Burj Khalifa Skyscraper" class="w-full h-44 object-cover" />
+        <div class="p-4">
+          <h4 class="font-bold text-brandGreen text-sm mb-1" data-i18n="fact_dubai_title">Dubai: Iconic Burj Khalifa</h4>
+          <p class="text-xs text-gray-600 leading-relaxed" data-i18n="fact_dubai_desc">Home to the world's tallest skyscraper (standing at 828 meters), Dubai transformed into a premier global crossroads for business and leisure.</p>
+        </div>
+      </div>
+
+      <!-- Paris Landmarks Image -->
+      <div class="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-100">
+        <img src="https://images.unsplash.com/photo-1549144511-f099e773c147?auto=format&fit=crop&w=600&q=80" alt="Paris Eiffel Tower and Landmarks" class="w-full h-44 object-cover" />
+        <div class="p-4">
+          <h4 class="font-bold text-brandGreen text-sm mb-1" data-i18n="fact_paris_title">Paris: City of Light</h4>
+          <p class="text-xs text-gray-600 leading-relaxed" data-i18n="fact_paris_desc">Earned its famous nickname because it was among the first European cities to implement extensive public gas lighting along its grand avenues.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact, Social Media & Office Location Section -->
+  <section class="max-w-6xl mx-auto px-4 py-8" id="contact">
+    <div class="bg-brandDark text-white rounded-2xl p-8 md:p-12 grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+      <div>
+        <h3 class="font-serif text-2xl md:text-3xl font-bold text-brandGold mb-4" data-i18n="contact_title">Contact Bati Beyond Travel</h3>
+        <p class="text-gray-300 text-sm mb-6" data-i18n="contact_subtitle">Our ticket desk is ready to answer your calls, confirm real-time flight fares, and issue e-tickets directly to your mobile device.</p>
+        
+        <ul class="space-y-3 text-sm text-gray-300 mb-6">
+          <li>🏢 <strong data-i18n="lbl_address">Address:</strong> Bole Bulbula Mariyam Mazoriya, Addis Ababa, Ethiopia</li>
+          <li>📞 <strong data-i18n="lbl_hotlines">Hotlines:</strong> +251 925 79 10 10 / +251 957 05 73 73</li>
+          <li>💬 <strong data-i18n="lbl_tg_desk">Telegram Desk:</strong> @BatiBeyondBooking</li>
+          <li>🕒 <strong data-i18n="lbl_hours">Working Hours:</strong> Mon – Sat: 8:30 AM – 7:30 PM</li>
+        </ul>
+
+        <!-- Social Channels -->
+        <div class="pt-4 border-t border-white/10 flex items-center gap-4 flex-wrap">
+          <span class="text-xs text-brandGold font-bold uppercase" data-i18n="lbl_follow_us">Follow Our Channels:</span>
+          <a href="https://t.me/BatiBeyondBooking" target="_blank" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded text-xs font-bold transition">💬 Telegram</a>
+          <a href="https://facebook.com" target="_blank" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded text-xs font-bold transition">📘 Facebook</a>
+          <a href="https://tiktok.com" target="_blank" class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded text-xs font-bold transition">🎵 TikTok</a>
+        </div>
+      </div>
+
+      <!-- Direct Message Form -->
+      <div class="bg-white/5 p-6 rounded-xl border border-white/10">
+        <h4 class="font-bold text-base text-brandGold mb-3" data-i18n="form_heading">Direct Telegram Message Desk</h4>
+        <div class="space-y-3">
+          <input type="text" id="custName" placeholder="Your Full Name" class="w-full p-3 rounded-lg bg-white/10 text-white placeholder-gray-400 text-sm border border-white/20 focus:outline-none" />
+          <input type="text" id="custPhone" placeholder="Phone Number" class="w-full p-3 rounded-lg bg-white/10 text-white placeholder-gray-400 text-sm border border-white/20 focus:outline-none" />
+          <textarea id="custNotes" rows="3" placeholder="Which flight route or date are you interested in?" class="w-full p-3 rounded-lg bg-white/10 text-white placeholder-gray-400 text-sm border border-white/20 focus:outline-none"></textarea>
+          <button onclick="sendCustomTelegramMsg()" class="btn-telegram w-full text-sm py-3">
+            <span data-i18n="btn_send_tg">Send to Telegram Desk</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-gray-500 text-xs text-center py-6 border-t border-gray-800">
+    <div class="max-w-6xl mx-auto px-4 space-y-2">
+      <p data-i18n="footer_copy">&copy; 2026 Bati Beyond Travel Agency. All Rights Reserved. Authorized Flight Ticketing Services.</p>
+      <p class="text-gray-600">Bole Bulbula Mariyam Mazoriya, Addis Ababa, Ethiopia • Hotlines: +251 925 79 10 10 / +251 957 05 73 73</p>
+    </div>
+  </footer>
+
+  <!-- JavaScript Implementation & Dynamic Language Engine -->
+  <script>
+    const TELEGRAM_USERNAME = "BatiBeyondBooking";
+
+    // Dynamic Multi-Language Dictionaries
+    const translations = {
+      en: {
+        nav_about: "About Us",
+        nav_domestic: "Domestic Flights",
+        nav_international: "International Flights",
+        nav_insights: "Travel Insights & Guides",
+        nav_time: "Time Converter",
+        nav_contact: "Contact Office",
+        nav_book: "Book Flight",
+        hero_badge: "✨ Official Agency Ticket Desk • Addis Ababa",
+        hero_title: "Your Seamless Bridge From Ethiopia To The World",
+        hero_subtitle: "Book fast, verified domestic flights across Ethiopia and non-stop international routes with Ethiopian Airlines, Emirates, Qatar Airways, and flydubai in Birr (ETB).",
+        search_heading: "✈️ Real-Time Ticket Inquiry & Booking Desk",
+        search_subheading: "Select your trip type, passenger count, and route to check live seat inventory.",
+        search_badge: "Instant Telegram Ticket Desk",
+        trip_oneway: "One-Way",
+        trip_roundtrip: "Round-Trip",
+        label_flight_type: "Category",
+        opt_domestic: "Domestic (Ethiopia)",
+        opt_international: "International (Global)",
+        label_origin: "Origin",
+        label_destination: "Destination",
+        label_date: "Departure Date",
+        label_return_date: "Return Date",
+        lbl_passengers: "Passengers",
+        lbl_adults: "Adults (12+ yrs)",
+        lbl_children: "Children (2-11 yrs)",
+        lbl_infants: "Infants (<2 yrs)",
+        btn_check_live: "✈️ Check Live Seat & Rates on Telegram Desk",
+        disc_title: "Important Price & Guidance Disclaimer:",
+        disc_body: "All ticket prices listed on this page are estimated starting prices provided strictly for customer guidance and reference. Final ticket fares fluctuate dynamically based on airline fare class, season, departure dates, seat tier, and live availability. For exact live rates and instant booking, please contact our agents via Telegram or telephone.",
+        about_title: "About Bati Beyond Travel",
+        about_subtitle: "Ethiopia's trusted full-service travel and ticket reservation desk.",
+        mission_title: "Our Mission",
+        mission_body: "Bati Beyond Travel was established to make domestic and international air travel accessible, effortless, and transparent for travelers in Ethiopia and the diaspora. Located at Bole Bulbula Mariyam Mazoriya, we specialize in providing verified fare classes in Ethiopian Birr (ETB), instant itinerary confirmation, and dedicated agency assistance.",
+        guarantee_title: "Our Service Guarantee",
+        guarantee_body: "Whether you are booking a pilgrimage to Lalibela, a business trip to Dubai, or transiting through Doha with Qatar Airways, our booking team monitors seat inventory in real time to ensure you get the best fare and luggage terms available.",
+        dom_section_title: "Domestic Flights Across Ethiopia",
+        dom_section_subtitle: "Daily scheduled non-stop flights operated by Ethiopian Airlines. (Starting Prices Shown)",
+        lbl_start_price: "Starting Price",
+        lbl_oneway_est: "*One-way base fare estimate",
+        btn_inquire_tg: "Inquire on Telegram",
+        route_lani_desc: "Direct flights to the 12th-century rock-cut monolithic churches.",
+        route_bjr_desc: "Gateway to Lake Tana island monasteries and the Blue Nile Falls.",
+        route_gdq_desc: "Visit Fasil Ghebbi royal castles and gateway to Simien Mountains.",
+        route_dir_desc: "Connect to the historical walled trade city of Harar Jugol.",
+        route_mqx_desc: "Access Tigray region, Gheralta rock churches, and Danakil tours.",
+        route_amh_desc: "Discover Nechisar National Park and Rift Valley lake resorts.",
+        int_section_title: "International Flights Departing & Arriving Addis",
+        int_section_subtitle: "Top Global Partners: Ethiopian Airlines, flydubai, Qatar Airways, Emirates.",
+        route_dxb_oneway_desc: "Direct flydubai non-stop flight to Dubai International Airport (DXB).",
+        lbl_oneway_start_price: "One-Way Starting Price",
+        lbl_tier_est: "*Subject to flight dates and seat tier",
+        route_dxb_rt_desc: "Roundtrip ticket packages available on flydubai and Ethiopian Airlines.",
+        lbl_rt_start_price: "Roundtrip Starting Price",
+        lbl_fz_rt_est: "*flydubai roundtrip base estimate",
+        route_lhr_desc: "Connect to London and Europe with Qatar Airways via Hamad Airport.",
+        lbl_qr_rate_est: "*One-way Qatar Airways rate estimate",
+        time_tool_title: "Global Flight Time Zone Converter",
+        time_tool_subtitle: "Calculate local departure and arrival times between Addis Ababa (EAT) and destination cities worldwide.",
+        lbl_origin_tz: "Origin Base",
+        lbl_select_dest_tz: "Select Destination City",
+        lbl_dest_tz: "Converted Destination Time",
+        insights_title: "Travel Insights & Destination Guides",
+        insights_subtitle: "Essential advice, cultural etiquette, and packing checklists for domestic and international journeys.",
+        tab_tips: "Essential Travel Tips",
+        tab_culture: "Cultural Etiquette",
+        tab_packing: "Traveler Packing Checklist",
+        tip1_title: "1. Airport Arrival Timings",
+        tip1_desc: "For domestic flights at Bole Terminal 1, arrive 2 hours prior to departure. For international departures at Terminal 2, arrive at least 3 to 4 hours earlier to clear security and baggage check.",
+        tip2_title: "2. Passport & Visa Validity",
+        tip2_desc: "Ensure your passport has at least 6 months validity from your travel date. Check transit visa requirements for layovers in Dubai, Doha, or Istanbul.",
+        tip3_title: "3. Baggage & Luggage Allowance",
+        tip3_desc: "Ethiopian Airlines domestic routes standard allowance is usually 20kg to 30kg. flydubai economy tickets vary by fare class. Confirm exact weight allowances with our agents.",
+        cult1_title: "🇪🇹 Cultural Respect in Historic Ethiopian Cities",
+        cult1_desc: "When visiting holy heritage sites like Lalibela or Lake Tana monasteries, dress modestly (white shawls or shoulders and knees covered). Remove shoes before stepping into sacred sanctuaries.",
+        cult2_title: "🇦🇪 Dubai & GCC Travel Norms",
+        cult2_desc: "Respect local laws regarding public conduct. Maintain respectful dress in government offices or shopping malls. Ensure medication carried has valid medical prescriptions.",
+        pack_title: "📋 Essential Traveler Packing Checklist",
+        pack_item1: "Original Passport & E-ticket Printout",
+        pack_item2: "Yellow Fever Vaccination Card (If required)",
+        pack_item3: "Universal Power Adapter",
+        pack_item4: "Prescription Medications & Doctor Notes",
+        pack_item5: "Emergency Contact Details & Local Currency",
+        pack_item6: "Warm Clothing for Highland Destinations",
+        facts_section_title: "Explore World Wonders & Historic Destinations",
+        facts_section_subtitle: "Discover fascinating stories behind the iconic places you can fly to with Bati Beyond Travel.",
+        fact_lani_title: "Lalibela: Church of Saint George",
+        fact_lani_desc: "Carved completely out of solid volcanic rock in the 12th century under King Lalibela, these 11 monolithic churches were sculpted top-down without mortar.",
+        fact_danakil_title: "Danakil & Erta Ale Lava Lake",
+        fact_danakil_desc: "One of the lowest and hottest places on Earth, Danakil features Erta Ale—one of only six active continuous lava lakes on the entire planet.",
+        fact_dubai_title: "Dubai: Iconic Burj Khalifa",
+        fact_dubai_desc: "Home to the world's tallest skyscraper (standing at 828 meters), Dubai transformed into a premier global crossroads for business and leisure.",
+        fact_paris_title: "Paris: City of Light",
+        fact_paris_desc: "Earned its famous nickname because it was among the first European cities to implement extensive public gas lighting along its grand avenues.",
+        contact_title: "Contact Bati Beyond Travel",
+        contact_subtitle: "Our ticket desk is ready to answer your calls, confirm real-time flight fares, and issue e-tickets directly to your mobile device.",
+        lbl_address: "Address:",
+        lbl_hotlines: "Hotlines:",
+        lbl_tg_desk: "Telegram Desk:",
+        lbl_hours: "Working Hours:",
+        lbl_follow_us: "Follow Our Channels:",
+        form_heading: "Direct Telegram Message Desk",
+        btn_send_tg: "Send to Telegram Desk",
+        footer_copy: "© 2026 Bati Beyond Travel Agency. All Rights Reserved. Authorized Flight Ticketing Services."
+      },
+      am: {
+        nav_about: "ስለ እኛ",
+        nav_domestic: "የሀገር ውስጥ በረራዎች",
+        nav_international: "ዓለም አቀፍ በረራዎች",
+        nav_insights: "የጉዞ መረጃና መመሪያዎች",
+        nav_time: "የሰዓት መቀየሪያ",
+        nav_contact: "ያግኙን",
+        nav_book: "ቲኬት ይዘዙ",
+        hero_badge: "✨ ሕጋዊ የጉዞና ቲኬት ቢሮ • አዲስ አበባ",
+        hero_title: "ከኢትዮጵያ ወደ ዓለም የሚያገናኝዎ ታማኝ መንገድ",
+        hero_subtitle: "የሀገር ውስጥ እና ዓለም አቀፍ የበረራ ቲኬቶችን በኢትዮጵያ አየር መንገድ፣ ኤምሬትስ፣ ካታር ኤርዌይስ እና ፍላይዱባይ በኢትዮጵያ ብር በቅጽበት ይዘዙ።",
+        search_heading: "✈️ የቀጥታ የቲኬት ዋጋና ቦታ መጠየቂያ",
+        search_subheading: "የጉዞ ዓይነት፣ የጎበኚዎችን ብዛትና መስመር መርጠው በቴሌግራም ይጠይቁ።",
+        search_badge: "ፈጣን የቴሌግራም ፍለጋ",
+        trip_oneway: "የአንድ መንገድ",
+        trip_roundtrip: "የመመላለሻ (Round-Trip)",
+        label_flight_type: " የበረራ ዓይነት",
+        opt_domestic: "የሀገር ውስጥ (ኢትዮጵያ)",
+        opt_international: "ዓለም አቀፍ (ዓለም አቀፍ)",
+        label_origin: "መነሻ",
+        label_destination: "መድረሻ",
+        label_date: "የጉዞ ቀን",
+        label_return_date: "የመመለሻ ቀን",
+        lbl_passengers: "ተጓዦች",
+        lbl_adults: "አዋቂዎች (12+ ዓመት)",
+        lbl_children: "ሕፃናት (2-11 ዓመት)",
+        lbl_infants: "ታዳጊዎች (<2 ዓመት)",
+        btn_check_live: "✈️ በቴሌግራም የቀጥታ ዋጋና ቦታ ያረጋግጡ",
+        disc_title: "አስፈላጊ የዋጋ መረጃ:",
+        disc_body: "በዚህ ገጽ ላይ የተቀመጡት ዋጋዎች የመነሻ ግምታዊ ዋጋዎች ናቸው። ትክክለኛው የበረራ ዋጋ እንደ በረራው ቀን፣ ወቅት እና የቦታ ዝግጁነት ሊቀየር ስለሚችል ለትክክለኛው ዋጋ በቴሌግራም ወይም በስልክ ያረጋግጡ።",
+        about_title: "ስለ ባቲ ቢዮንድ ትራቭል",
+        about_subtitle: "የኢትዮጵያ ታማኝ የጉዞ እና የቲኬት ቢሮ።",
+        mission_title: "ዓላማችን",
+        mission_body: "ባቲ ቢዮንድ ትራቭል የተቋቋመው የሀገር ውስጥ እና ዓለም አቀፍ የአየር ጉዞዎችን ለደንበኞቻችን ቀላል፣ ፈጣን እና ግልጽ ለማድረግ ነው። በቦሌ ቡልቡላ ማሪያም ማዞሪያ የሚገኘው ቢሮአችን በኢትዮጵያ ብር የተረጋገጡ ቲኬቶችን ያቀርባል።",
+        guarantee_title: "የአገልግሎት ዋስትናችን",
+        guarantee_body: "ወደ ላሊበላ የሚደረግ መንፈሳዊ ጉዞ ወይም ወደ ዱባይ የሚደረግ የንግድ ጉዞ፣ የቡድናችን አባላት የተሻለ ዋጋና የኮታ መብት ለማስገኘት በየሰከንዱ ዋጋዎችን ይከታተላሉ።",
+        dom_section_title: "የሀገር ውስጥ በረራዎች",
+        dom_section_subtitle: "በኢትዮጵያ አየር መንገድ የሚሰጡ የዘወትር በረራዎች (የመነሻ ዋጋዎች)",
+        lbl_start_price: "የመነሻ ዋጋ",
+        lbl_oneway_est: "*የአንድ መንገድ ግምታዊ ዋጋ",
+        btn_inquire_tg: "በቴሌግራም ጠይቅ",
+        route_lani_desc: "ወደ 12ኛው ክፍለ ዘመን ድንቅ ውቅር አብያተ ክርስቲያናት በቀጥታ በረራ።",
+        route_bjr_desc: "ወደ ጣና ሐይቅ ደሴቶችና ዓባይ ፏፏቴ መግቢያ።",
+        route_gdq_desc: "የፋሲል ግቢ ቤተ መንግሥት እና የስሜን ተራሮች መግቢያ።",
+        route_dir_desc: "ወደ ታሪካዊቷ የሐረር ጁጎል ከተማ ማገናኛ።",
+        route_mqx_desc: "የትግራይ ክልል፣ የገርዓልታ አብያተ ክርስቲያናት እና ዳናኪል መግቢያ።",
+        route_amh_desc: "የነጭሣር ብሔራዊ ፓርክ እና የሪፍት ቫሊ ሐይቆች ገነት።",
+        int_section_title: "ዓለም አቀፍ የበረራ መስመሮች",
+        int_section_subtitle: "ዋና አጋሮች፡ የኢትዮጵያ አየር መንገድ፣ ፍላይዱባይ፣ ካታር ኤርዌይስ፣ ኤምሬትስ።",
+        route_dxb_oneway_desc: "በፍላይዱባይ ቀጥታ ወደ ዱባይ ዓለም አቀፍ አውሮፕላን ማረፊያ።",
+        lbl_oneway_start_price: "የአንድ መንገድ የመነሻ ዋጋ",
+        lbl_tier_est: "*እንደ በረራው ቀንና ደረጃ ሊቀየር የሚችል",
+        route_dxb_rt_desc: "በፍላይዱባይ እና በኢትዮጵያ አየር መንገድ የመልስ በረራዎች።",
+        lbl_rt_start_price: "የመመላለሻ የመነሻ ዋጋ",
+        lbl_fz_rt_est: "*የፍላይዱባይ መመላለሻ ግምታዊ ዋጋ",
+        route_lhr_desc: "በካታር ኤርዌይስ በዶሃ በኩል ወደ लንደን እና አውሮፓ።",
+        lbl_qr_rate_est: "*የካታር ኤርዌይስ አንድ መንገድ ግምት",
+        time_tool_title: "የዓለም አቀፍ ከተሞች የሰዓት ልዩነት መቀየሪያ",
+        time_tool_subtitle: "በአዲስ አበባ እና በዓለም አቀፍ ከተሞች መካከል ያለውን የሰዓት ልዩነት ያሰሉ።",
+        lbl_origin_tz: "የመነሻ ሰዓት (አዲስ አበባ)",
+        lbl_select_dest_tz: "መድረሻ ከተማ ይምረጡ",
+        lbl_dest_tz: "የመድረሻ ከተማ ሰዓት",
+        insights_title: "የጉዞ መረጃና መመሪያዎች",
+        insights_subtitle: "ለሀገር ውስጥ እና ዓለም አቀፍ ጉዞዎች የሚያስፈልጉ ጠቃሚ ምክሮችና መረጃዎች።",
+        tab_tips: "አስፈላጊ የጉዞ ምክሮች",
+        tab_culture: "ባህላዊ እሴቶች",
+        tab_packing: "የእቃ መያዣ ማረጋገጫ",
+        tip1_title: "1. አውሮፕላን ማረፊያ የሚደረስበት ሰዓት",
+        tip1_desc: "ለሀገር ውስጥ በረራ ከ2 ሰዓት በፊት፣ ለዓለም አቀፍ በረራዎች ደግሞ ቢያንስ ከ3-4 ሰዓት በፊት ቦሌ ኤርፖርት ይገኙ።",
+        tip2_title: "2. የፓስፖርት ፀናት",
+        tip2_desc: "ፓስፖርትዎ ቢያንስ የ6 ወር ፀናት ያለው መሆኑን ያረጋግጡ።",
+        tip3_title: "3. የኪሎ መጠን",
+        tip3_desc: "የሀገር ውስጥ በረራ የኪሎ መጠን ከ20-30 ኪ.ግ ሲሆን እንደ በረራው ዓይነት ስለሚለያይ በቴሌግራም ያረጋግጡ።",
+        cult1_title: "🇪🇹 የታሪካዊ ቦታዎች ባህላዊ አከባበር",
+        cult1_desc: "ላሊበላን ወይም የጣና ደሴቶችን ሲጎበኙ ተገቢውን የባህል አልባሳት ይልበሱ።",
+        cult2_title: "🇦🇪 የዱባይ ጉዞ ሕጎች",
+        cult2_desc: "የከተማዋን ሕጎችና ደንቦች ያክብሩ።",
+        pack_title: "📋 የጉዞ ዕቃዎች ማረጋገጫ",
+        pack_item1: "ዋና ፓስፖርት እና የበረራ ቲኬት",
+        pack_item2: "የብጫ ወባ ካርድ (ካስፈልገ)",
+        pack_item3: "የስልክና ላፕቶፕ ቻርጀር አዳፕተር",
+        pack_item4: "የሐኪም ማዘዣ ያላቸው መድኃኒቶች",
+        pack_item5: "የአደጋ ጊዜ ስልኮችና ጥሬ ገንዘብ",
+        pack_item6: "የብርድ ልብሶችና አልባሳት",
+        facts_section_title: "የዓለም ድንቆችና ታሪካዊ መረጃዎች",
+        facts_section_subtitle: "ከእኛ ጋር በሚበሩባቸው ቦታዎች ላይ አስደናቂ ታሪኮችን ይወቁ።",
+        fact_lani_title: "ላሊበላ፡ የቅዱስ ጊዮርጊስ ቤተክርስቲያን",
+        fact_lani_desc: "በ12ኛው ክፍለ ዘመን በንጉሥ ላሊበላ ዘመን ከአንድ ድንጋይ የተቀረፁ 11 ድንቅ አብያተ ክርስቲያናት።",
+        fact_danakil_title: "ዳናኪል እና ኤርታ አሌ እሳተ ገሞራ",
+        fact_danakil_desc: "በምድር ላይ ዝቅተኛና ሞቃታማ ቦታ ሲሆን ኤርታ አሌ በዓለም ላይ ካሉ 6 ቀጣይነት ባላቸው የቀለጠ እሳት ሐይቆች አንዱ ነው።",
+        fact_dubai_title: "ዱባይ፡ ቡርጅ ካሊፋ",
+        fact_dubai_desc: "የዓለማችን ረጅሙ ሕንፃ (828 ሜትር) የሚገኝባት ዱባይ ወደ ዓለም አቀፍ የንግድ ማዕከልነት ተቀይራለች።",
+        fact_paris_title: "ፓሪስ፡ የብርሃኗ ከተማ",
+        fact_paris_desc: "በ1800ዎቹ በጎዳናዎቿ ላይ ጋዝ በመጠቀም የጎዳና መብራት በማብራት የመጀመሪያዋ ከተማ በመሆኗ ይህን ስም አግኝታለች።",
+        contact_title: "ባቲ ቢዮንድ ትራቭልን ያግኙ",
+        contact_subtitle: "የቲኬት ክፍል ሰራተኞቻችን ጥሪዎን ለመቀበልና ትክክለኛውን ዋጋ አረጋግጠው ኢ-ቲኬት ለመላክ ዝግጁ ናቸው።",
+        lbl_address: "አድራሻ፡",
+        lbl_hotlines: "ስልክ፡",
+        lbl_tg_desk: "ቴሌግራም፡",
+        lbl_hours: "የሥራ ሰዓት፡",
+        lbl_follow_us: "ማህበራዊ ሚዲያችን፡",
+        form_heading: "የቀጥታ የቴሌግራም መልእክት",
+        btn_send_tg: "ወደ ቴሌግራም ይላኩ",
+        footer_copy: "© 2026 ባቲ ቢዮንድ ትራቭል ኤጀንሲ። መብቱ በሕግ የተጠበቀ ነው።"
+      },
+      ti: {
+        nav_about: "ብዛዕባና",
+        nav_domestic: "ናይ ውሽጢ ዓዲ በረራታት",
+        nav_international: "ዓለም ለኸ በረራታት",
+        nav_insights: "መመሪያታት ጉዞ",
+        nav_time: "መቀየሪ ሰዓት",
+        nav_contact: "ረኸቡና",
+        nav_book: "ቲኬት ሕዙ",
+        hero_badge: "✨ ሕጋዊ ቢሮ ጉዞን ቲኬትን • ኣዲስ ኣበባ",
+        hero_title: "ካብ ኢትዮጵያ ናብ ብዘላ ዓለም ዘራኽበኩም እሙን መንገዲ",
+        hero_subtitle: "ናይ ውሽጢ ዓድን ዓለም ለኸን በረራታት ብኢትዮጵያ አየር መንገድ፣ ኤምሬትስ፣ ካታር ኤርዌይስን ፍላይዱባይን ብኢትዮጵያ ብር ብቕልጡፍ ሕዙ።",
+        search_heading: "✈️ ናይ በረራ ሕቶን ዋጋን",
+        search_subheading: "ዓይነት ጉዞን ቁጽሪ ተጓዓዝትን ብምምራጽ ብቴሌግራም ሕተቱ።",
+        search_badge: "ቕልጡፍ ናይ ቴሌግራም ደላይ",
+        trip_oneway: "ሓደ ወገን",
+        trip_roundtrip: "ምምልላስ (Round-Trip)",
+        label_flight_type: "ዓይነት በረራ",
+        opt_domestic: "ናይ ውሽጢ ዓዲ (ኢትዮጵያ)",
+        opt_international: "ዓለም ለኸ",
+        label_origin: "መበገሲ",
+        label_destination: "መበጻሒ",
+        label_date: "መዓልቲ ጉዞ",
+        label_return_date: "መዓልቲ ምልስ",
+        lbl_passengers: "ተጓዓዝቲ",
+        lbl_adults: "ዓበይቲ (12+ ዓመት)",
+        lbl_children: "ቆልዑ (2-11 ዓመት)",
+        lbl_infants: "ሕፃናት (<2 ዓመት)",
+        btn_check_live: "✈️ ብቴሌግራም ዋጋን ቦታን የረጋግጹ",
+        disc_title: "ኣገዳሲ ሓበሬታ ዋጋ:",
+        disc_body: "ኣብዚ ገጽ ተዘርዚሮም ዘለዉ ዋጋታት ናይ መበገሲ ግምታዊ ዋጋታት እዮም። ናይ መወዳእታ ዋጋ ከም መዓልቲ ጉዞን ምህላው ቦታን ስለዝቀያየር ብቴሌግራም ወይ ብቴሌፎን የረጋግጹ።",
+        about_title: "ብዛዕባ ባቲ ቢዮንድ ትራቭል",
+        about_subtitle: "እሙን ናይ ጉዞን ቲኬትን ቢሮ ኣብ ኢትዮጵያ።",
+        mission_title: "ዕላማና",
+        mission_body: "ባቲ ቢዮንድ ትራቭል ናይ ውሽጢ ዓድን ዓለም ለኸን ጉዞታት ብኢትዮጵያ ብር ብቐሊሉን ብግልጽነትን ንምቕራብ ዝተጣየሸ እዩ።",
+        guarantee_title: "ውሕስነት ኣገልግሎትና",
+        guarantee_body: "ናብ ላሊበላ ወይ ናብ ዱባይ ንእትገብርዎ ጉዞ ሰራሕተኛታትና ዝሓሸ ዋጋ ንምርካብ ወፌታዊ ሓበሬታ የቕርቡልኩም።",
+        dom_section_title: "ናይ ውሽጢ ዓዲ በረራታት",
+        dom_section_subtitle: "ብኢትዮጵያ አየር መንገድ ዝወሃቡ ናይ መዓልቲ በረራታት (መበገሲ ዋጋ)",
+        lbl_start_price: "መበገሲ ዋጋ",
+        lbl_oneway_est: "*ሓደ ወገን ግምታዊ ዋጋ",
+        btn_inquire_tg: "ብቴሌግራም ሕተቱ",
+        route_lani_desc: "ናብ ናይ 12 ክፍለ ዘመን ውቅር ኣብያተ ክርስቲያናት ቀጥታ በረራ።",
+        route_bjr_desc: "ናብ ራእሲ ሓይቂ ጣናን ውድቀት ኣባይን።",
+        route_gdq_desc: "ናብ ቤተ መንግስቲ ፋሲልን ኣኽራን ሰሜንን።",
+        route_dir_desc: "ናብ ታሪኻዊት ኸተማ ሓረር ጁጎል።",
+        route_mqx_desc: "ናብ ክልል ትግራይ፣ ኣብያተ ክርስቲያናት ገርዓልታን ዳናኪልን።",
+        route_amh_desc: "ናብ ፓርክ ነጭሳርን ሓይቅታት ሪፍት ቫሊን።",
+        int_section_title: "ዓለም ለኸ በረራታት",
+        int_section_subtitle: "ቀንዲ መሻርኽትና፡ ኢትዮጵያ አየር መንገድ፣ ፍላይዱባይ፣ ካታር ኤርዌይስ፣ ኤምሬትስ።",
+        route_dxb_oneway_desc: "ብፍላይዱባይ ቀጥታ ናብ ዱባይ ዓለም ለኸ ኤርፖርት።",
+        lbl_oneway_start_price: "ናይ ሓደ ወገን መበገሲ ዋጋ",
+        lbl_tier_est: "*ከም መዓልቲ ጉዞ ዝቀያየር",
+        route_dxb_rt_desc: "ብፍላይዱባይን ኢትዮጵያ አየር መንገድን ናይ ምምልላስ በረራታት።",
+        lbl_rt_start_price: "ናይ ምምልላስ መበገሲ ዋጋ",
+        lbl_fz_rt_est: "*ናይ ምምልላስ ግምታዊ ዋጋ",
+        route_lhr_desc: "ብካታር ኤርዌይስ ብዶሃ ኣቢልካ ናብ लንደንን ኤውሮጳን።",
+        lbl_qr_rate_est: "*ናይ ካታር ኤርዌይስ ሓደ ወገን ግምት",
+        time_tool_title: "መቀየሪ ሰዓት ከተማታት ዓለም",
+        time_tool_subtitle: "ኣብ መንጎ ኣዲስ ኣበባን ዓለም ለኸ ከተማታትን ዘሎ ናይ ሰዓት ፈላሊ የሰሉ።",
+        lbl_origin_tz: "መበገሲ ሰዓት (ኣዲስ ኣበባ)",
+        lbl_select_dest_tz: "መበጻሒት ከተማ ሕረዩ",
+        lbl_dest_tz: "ሰዓት መበጻሒት ከተማ",
+        insights_title: "መመሪያታት ጉዞ",
+        insights_subtitle: "ንጉዞኹም ዘድልዩ ኣገደስቲ ሓበሬታታትን ምኽርታትን።",
+        tab_tips: "ምኽሪ ጉዞ",
+        tab_culture: "ባህላዊ ክብርታት",
+        tab_packing: "ምድላው ኣቑሑት",
+        tip1_title: "1. ሰዓት ምብጻሕ ኤርፖርት",
+        tip1_desc: "ንውሽጢ ዓዲ በረራ ቅድሚ 2 ሰዓት፣ ንዓለም ለኸ በረራታት ድማ ቅድሚ 3-4 ሰዓት ኣብ ኤርፖርት ተረከቡ።",
+        tip2_title: "2. ፅንዓት ፓስፖርት",
+        tip2_desc: "ፓስፖርትኹም እንተወሓደ ናይ 6 ወርሒ ፅንዓት ከምዘለዎ የረጋግጹ።",
+        tip3_title: "3. መጠን ኪሎ",
+        tip3_desc: "መጠን ኪሎ ንነፍሲ ወከፍ በረራ ስለዝፈላለ ብቴሌግራም የረጋግጹ።",
+        cult1_title: "🇪🇹 ታሪኻዊ ቦታታት ትግራይን ኢትዮጵያን",
+        cult1_desc: "ኣብ ቅዱሳት ቦታታት ግቡእ ክዳን ተኸደኑ።",
+        cult2_title: "🇦🇪 ሕግታት ጉዞ ዱባይ",
+        cult2_desc: "ናይቲ ቦታ ሕግታትን ደንብታትን ኣክብሩ።",
+        pack_title: "📋 መረጋገፂ ኣቑሑት ጉዞ",
+        pack_item1: "ዋና ፓስፖርትን ናይ በረራ ቲኬትን",
+        pack_item2: "ካርድ ብጫ ወባ",
+        pack_item3: "ቻርጀር አዳፕተር",
+        pack_item4: "ሕክምናዊ ሓበሬታ ዘለዎም መድሃኒታት",
+        pack_item5: "ናይ ሓደጋ ቴሌፎናትን ቅርሺ cash",
+        pack_item6: "ኣልባሳት ቁሪ",
+        facts_section_title: "ዓለም ለኻዊ ድንቅታትን ታሪኽን",
+        facts_section_subtitle: "ምስና ኣብ እትበርሩሎም ቦታታት ዘለዉ ታሪኻት ፍለጡ።",
+        fact_lani_title: "ላሊበላ፡ ቤተክርስቲያን ቅዱስ ጊዮርጊስ",
+        fact_lani_desc: "ብ12 ክፍለ ዘመን ብንጉስ ላሊበላ ካብ ሓደ እምኒ ዝተወቀሩ 11 ኣብያተ ክርስቲያናት።",
+        fact_danakil_title: "ዳናኪልን እሳተ ገሞራ ኤርታ አሌን",
+        fact_danakil_desc: "ኣብ ዓለምና ኣዝዩ ትሑትን ውዑይን ቦታ ኮይኑ ኤርታ አሌ ናይ እሳት ሓይቂ እዩ።",
+        fact_dubai_title: "ዱባይ፡ ቡርጅ ካሊፋ",
+        fact_dubai_desc: "ኣብ ዓለምና እቲ ዝነወሐ ሕንጻ (828 ሜትር) ዝርከበላ ዓለም ለኻዊት ኸተማ።",
+        fact_paris_title: "ፓሪስ፡ ኸተማ ብርሃን",
+        fact_paris_desc: "ብ1800ታት ኣብ መገድታታ ናይ ጋዝ መብራህቲ ብምጥቃማ ዝተዋህባ ስም እዩ።",
+        contact_title: "ንባቲ ቢዮንድ ትራቭል ረኸቡ",
+        contact_subtitle: "ሰብ ሞያና ዋጋ ኣረጋጊጾም ኢ-ቲኬት ክልእኩልኩም ድሉዋት እዮም።",
+        lbl_address: "ኣድራሻ፡",
+        lbl_hotlines: "ቴሌፎን፡",
+        lbl_tg_desk: "ቴሌግራም፡",
+        lbl_hours: "ሰዓት ዕዮ፡",
+        lbl_follow_us: "ማሕበራዊ ሚዲያና፡",
+        form_heading: "ቀጥታ ናይ ቴሌግራም መልእኽቲ",
+        btn_send_tg: "ናብ ቴሌግራም ስደዱ",
+        footer_copy: "© 2026 ባቲ ቢዮንድ ትራቭል ኤጀንሲ። ብሕጊ ዝተሓለወ እዩ።"
+      },
+      om: {
+        nav_about: "Waee Keenya",
+        nav_domestic: "Imala Biyya Keessaa",
+        nav_international: "Imala Biyya Alaa",
+        nav_insights: "Qajeelfama Imalaa",
+        nav_time: "Jijjiirraa Sa'aatii",
+        nav_contact: "Nu Qunnamaa",
+        nav_book: "Tiketti Qabadhaa",
+        hero_badge: "✨ Ejensii Tiketti Seeraa • Finfinnee",
+        hero_title: "Karra Keessan Biyya Itoophiyaa Irraa Gara Addunyaatti",
+        hero_subtitle: "Imala biyya keessaa fi biyya alaa salphaatti fi baasii madaalawaan Birrii Itoophiyaatiin Ethiopian Airlines, Emirates, Qatar Airways fi flydubai wajjin qabadhaa.",
+        search_heading: "✈️ Odeeffannoo Gatiifi Bakka Imalaa",
+        search_subheading: "Gosa imalaa, baay'ina imaltootaa fi bakka geessan filachuun Telegram'n gaafadhaa.",
+        search_badge: "Barbaacha Telegram Saffisaa",
+        trip_oneway: "Kallattii Tokko",
+        trip_roundtrip: "Deebii (Round-Trip)",
+        label_flight_type: "Gosa Imalaa",
+        opt_domestic: "Biyya Keessaa (Itoophiyaa)",
+        opt_international: "Biyya Alaa",
+        label_origin: "Ka'umsa",
+        label_destination: "Gahumsa",
+        label_date: "Guyyaa Imalaa",
+        label_return_date: "Guyyaa Deebii",
+        lbl_passengers: "Imaltoota",
+        lbl_adults: "Ga'eessota (12+ yrs)",
+        lbl_children: "Daa'imman (2-11 yrs)",
+        lbl_infants: "Muka'oowwan (<2 yrs)",
+        btn_check_live: "✈️ Telegram'n Gatii fi Bakka Imalaa Mirkaneessaa",
+        disc_title: "Odeeffannoo Gatii Barbaachisaa:",
+        disc_body: "Gatiin tiketti fuula kana irratti agarsiifaman tilmaama ka'umsaati. Gatiin dhumaa guyyaa imalaa fi bakka jiru irratti hundaa'ee jijjiiramuu waan danda'uuf Telegram ykn bilbilaan nu qunnamaa.",
+        about_title: "Waee Bati Beyond Travel",
+        about_subtitle: "Miseensa tiketti amanamoo fi tajaajila imala Itoophiyaa.",
+        mission_title: "Kaayyoo Keenya",
+        mission_body: "Bati Beyond Travel imala qilleensaa biyya keessaa fi biyya alaa amanamoo fi salphaa gochuuf hundeeffame. Bole Bulbula Mariyam Mazoriya irratti kan argamu ejensiin keenya Birrii Itoophiyaatiin tajaajila kenna.",
+        guarantee_title: "Wabii Tajaajila Keenyaa",
+        guarantee_body: "Gara Laalibelaatti imaltus ykn gara Dubaitti imala daldalaa gochuu yoo برባddu, gareen keenya gatii gaarii isiniif mirkaneessa.",
+        dom_section_title: "Imala Biyya Keessaa Itoophiyaa",
+        dom_section_subtitle: "Imala guyyaa kessatti Ethiopian Airlines'n kennamu (Gatii Ka'umsaa)",
+        lbl_start_price: "Gatii Ka'umsaa",
+        lbl_oneway_est: "*Tilmaama kallattii tokkoo",
+        btn_inquire_tg: "Telegram'n Gaafadhaa",
+        route_lani_desc: "Kallattiin gara manneen kiristaanaa katsa Jaarraa 12ffaatti.",
+        route_bjr_desc: "Gara mooraa Haroo Xaanaafi Finfinnee Biliisatti.",
+        route_gdq_desc: "Gara Masaraa Faasiil fi Gaara Semeeniitti.",
+        route_dir_desc: "Gara magaalaa seenaqqee Harar Jugol ti.",
+        route_mqx_desc: "Gara naannoo Tigraay, Gheraltaa fi Danakil ti.",
+        route_amh_desc: "Gara Paarkii Biyyaalessaa Nechisar fi haroowwan Rift Valley.",
+        int_section_title: "Imala Biyya Alaa",
+        int_section_subtitle: "Michoota keeyna: Ethiopian Airlines, flydubai, Qatar Airways, Emirates.",
+        route_dxb_oneway_desc: "Kallattiin flydubai'n gara Buufata Xiyyaaraa Dubaitti.",
+        lbl_oneway_start_price: "Gatii Ka'umsaa Kallattii Tokkoo",
+        lbl_tier_est: "*Guyyaa imalaa irratti kan hundaa'u",
+        route_dxb_rt_desc: "Imala deebii flydubai fi Ethiopian Airlines wajjin.",
+        lbl_rt_start_price: "Gatii Ka'umsaa Deebii",
+        lbl_fz_rt_est: "*Tilmaama imala deebii flydubai",
+        route_lhr_desc: "Qatar Airways'n Doha kaasee gara Landan fi Yuurooppi.",
+        lbl_qr_rate_est: "*Tilmaama Qatar Airways kallattii tokkoo",
+        time_tool_title: "Jijjiirraa Sa'aatii Magaalota Addunyaa",
+        time_tool_subtitle: "Garaagarummaa sa'aatii Finfinnee fi magaalota addunyaa gidduu jiru shallagaa.",
+        lbl_origin_tz: "Sa'aatii Ka'umsaa (Finfinnee)",
+        lbl_select_dest_tz: "Magaalaa Gahumsaa Filadhaa",
+        lbl_dest_tz: "Sa'aatii Magaalaa Gahumsaa",
+        insights_title: "Qajeelfama Imalaa",
+        insights_subtitle: "Gorsa barbaachisaa fi seera imala biyya keessaa fi biyya alaa.",
+        tab_tips: "Gorsa Imalaa",
+        tab_culture: "Aadaa fi Seera",
+        tab_packing: "Qophii Mi'a Imalaa",
+        tip1_title: "1. Yeroo Buufata Xiyyaaraa",
+        tip1_desc: "Imala biyya keessaaf sa'aatii 2 dura, imala biyya alaaf sa'aatii 3-4 dura buufata xiyyaaraa gahaa.",
+        tip2_title: "2. Paaspoortii",
+        tip2_desc: "Paaspoortiin keessan yoo xiqqaate ji'a 6yif kan hojjetu ta'uu mirkaneessaa.",
+        tip3_title: "3. Ulfaatina Ulfaataa",
+        tip3_desc: "Ulfaatinni heyyamamu xiyyaara irratti waan jijjiiramuuf Telegram'n nu gaafadhaa.",
+        cult1_title: "🇪🇹 Kabaja Bakkeewwan Seenaa",
+        cult1_desc: "Bakkeewwan qulqulluu yommuu daawwattan uffata seeraa uffadhaa.",
+        cult2_title: "🇦🇪 Seera Dubai",
+        cult2_desc: "Seeraa fi aadaa magaalaa kabajaa.",
+        pack_title: "📋 Tarree Mi'a Imalaa",
+        pack_item1: "Paaspoortii fi Tiketti originala",
+        pack_item2: "Waraqaa Vaksiinii Yellow Fever",
+        pack_item3: "Adpater chaargerii",
+        pack_item4: "Qoricha doctor'n ajajame",
+        pack_item5: "Namboorota balaa & Qian cash",
+        pack_item6: "Uffata qorraa",
+        facts_section_title: "Dinqisiisoowwan Addunyaa fi Seenaa",
+        facts_section_subtitle: "Seenaa bakkeewwan nu wajjin balali'tan baradhaa.",
+        fact_lani_title: "Laalibela: Mana Kiristaanaa Kattaa",
+        fact_lani_desc: "Jaarraa 12ffaa keessa kattaa tokko irraa suphee fi siminto malee kan bocaman manneen kiristaanaa 11.",
+        fact_danakil_title: "Danakil & Volkaanoo Erta Ale",
+        fact_danakil_desc: "Bakka ho'aa fi gadi aanaa addunyaa, haroo ibidda kan qabu.",
+        fact_dubai_title: "Dubai: Burj Khalifa",
+        fact_dubai_desc: "Gamoowwan dheeraa addunyaa (828 meter) kan qabdu magaalaa guddittii.",
+        fact_paris_title: "Paris: Magaalaa Ifaa",
+        fact_paris_desc: "Jaarraa 19ffaa keessa ibsaa gaazii daandii irratti fayyadamuu isheetiin kan beektamte.",
+        contact_title: "Bati Beyond Travel Qunnamaa",
+        contact_subtitle: "Hojjettoonni keenya bilbila keessan simachuufi e-ticket isiniif erguuf qophiidha.",
+        lbl_address: "Teessoo:",
+        lbl_hotlines: "Bilbila:",
+        lbl_tg_desk: "Telegram Desk:",
+        lbl_hours: "Sa'aatii Hojii:",
+        lbl_follow_us: "Midiyaa Hawaasaa Keenya:",
+        form_heading: "Ergaa Telegram Kallattii",
+        btn_send_tg: "Gara Telegram'tti Ergaa",
+        footer_copy: "© 2026 Bati Beyond Travel Agency. Mirgi Biyyaalessaa Seeraan Kan Eegame."
+      },
+      so: {
+        nav_about: "Ku Saabsan",
+        nav_domestic: "Duulimaadyada Gudaha",
+        nav_international: "Duulimaadyada Caalamiga",
+        nav_insights: "Hadafka Safarka",
+        nav_time: "Converter-ka Saacada",
+        nav_contact: "Nala Soo Xiriir",
+        nav_book: "Boos Qabso Ticket",
+        hero_badge: "✨ Xafiiska Sharciga Ah Ee Tikidhada • Addis Ababa",
+        hero_title: "Bridge-kaaga La Kalsoonaan Karo Ee Itoobiya Ilbaa Duulimaadyada Dunida",
+        hero_subtitle: "Ka bookso tikidhada duulimaadyada gudaha iyo kuwa caalamiga ah Birta Itoobiya (ETB) si dhakhso leh.",
+        search_heading: "✈️ Waqtiga Dhabta Ah Ee Su'aalaha Tikidhada",
+        search_subheading: "Eeg gataasha duulimaadka iyo tirada raasaasayaasha Telegram.",
+        search_badge: "Raadinta Telegram Dhadhakhsaha Ah",
+        trip_oneway: "Hal Dhinac",
+        trip_roundtrip: "Noqoshada (Round-Trip)",
+        label_flight_type: "Astaanta Duulimaadka",
+        opt_domestic: "Gudaha (Itoobiya)",
+        opt_international: "Caalamiga",
+        label_origin: "Ka Bixida",
+        label_destination: "U Socda",
+        label_date: "Taariikhda Bixida",
+        label_return_date: "Taariikhda Noqoshada",
+        lbl_passengers: "Rakaabka",
+        lbl_adults: "Adults (12+ yrs)",
+        lbl_children: "Watani (2-11 yrs)",
+        lbl_infants: "Infants (<2 yrs)",
+        btn_check_live: "✈️ Telegram Ka Eeg Boosaska Iyo Gâtiga Live-ka Ah",
+        disc_title: "Xogta Muhiimka Ah Ee Qiimaha:",
+        disc_body: "Dhammaan qiimayaasha halkan ku qorani waa qiimaha bilowga ee qiyaasta ah. Qiimaha ugu dambeeya wuxuu ku xiran yahay taariikhda duulimaadka iyo boosaska bannaan.",
+        about_title: "Ku Saabsan Bati Beyond Travel",
+        about_subtitle: "Xafiiska duulimaadyada iyo tikidhada ee looga kalsoonaan karo Itoobiya.",
+        mission_title: "Hadafkayaga",
+        mission_body: "Bati Beyond Travel waxaa loo meel dhigay inuu u fududeyo duulimaadyada gudaha iyo kuwa caalamiga ah muwaadiniinta iyo qurbajoogta.",
+        guarantee_title: "Dammaanadda Adeegayaga",
+        guarantee_body: "Haddii aad u safrayso Lalibela ama Dubai, kooxdaydu waxay si live ah u la monitors gareeyaan qiimaha ugu wanaagsan.",
+        dom_section_title: "Duulimaadyada Gudaha Itoobiya",
+        dom_section_subtitle: "Duulimaadyada maalinlaha ah ee Ethiopian Airlines (Qiimaha Bilowga)",
+        lbl_start_price: "Qiimaha Bilowga",
+        lbl_oneway_est: "*Qiyaasta hal dhinac",
+        btn_inquire_tg: "Wax Ka Pytsro Telegram",
+        route_lani_desc: "Duulimaadka direct-ka ah ee goobaha taariikhiga ah ee Lalibela.",
+        route_bjr_desc: "Albaabka harada Tana iyo Biyo-dhaca Nile-ka Bluu-ga ah.",
+        route_gdq_desc: "Qasriga Fasil Ghebbi iyo Buuraha Simien.",
+        route_dir_desc: "Ku xiranta magaalada taariikhiga ah ee Harar Jugol.",
+        route_mqx_desc: "Gobolka Tigray, kaniisadaha Gheralta iyo Danakil.",
+        route_amh_desc: "Beerta Qaranka Nechisar iyo Harooyinka Rift Valley.",
+        int_section_title: "Duulimaadyada Caalamiga Ah",
+        int_section_subtitle: "Wada-hawlgalayaasha: Ethiopian Airlines, flydubai, Qatar Airways, Emirates.",
+        route_dxb_oneway_desc: "Duulimaadka direct-ka ah ee flydubai ilaa Dubai International Airport.",
+        lbl_oneway_start_price: "Qiimaha Bilowga Hal Dhinac",
+        lbl_tier_est: "*Ku xiran taariikhda duulimaadka",
+        route_dxb_rt_desc: "Tikitka noqoshada ee flydubai iyo Ethiopian Airlines.",
+        lbl_rt_start_price: "Qiimaha Bilowga Noqoshada",
+        lbl_fz_rt_est: "*Qiyaasta noqoshada flydubai",
+        route_lhr_desc: "Qatar Airways oo ku xireysa London iyo Europe Hamad Airport.",
+        lbl_qr_rate_est: "*Qiyaasta Qatar Airways hal dhinac",
+        time_tool_title: "Converter-ka Saacada Magaalooyinka Dunida",
+        time_tool_subtitle: "Xisaabi farqiga saacada ee u dhaxeeya Addis Ababa iyo magaalooyinka dunida.",
+        lbl_origin_tz: "Saacada Ka Bixida (Addis)",
+        lbl_select_dest_tz: "Dooro Magaalada U Socoto",
+        lbl_dest_tz: "Saacada Magaalada U Socoto",
+        insights_title: "Hadafka Safarka",
+        insights_subtitle: "Talooyinka muhiimka ah ee safarka gudaha iyo caalamiga.",
+        tab_tips: "Talooyinka Safarka",
+        tab_culture: "Dhaqanka & Shuruucda",
+        tab_packing: "Liiska Alaabta Safarka",
+        tip1_title: "1. Waqtiga Garoonka",
+        tip1_desc: "Ka soo qayb gal garoonka 2 saacadood ka hor duulimaadka gudaha, 3-4 saacadood ka hor duulimaadka caalamiga.",
+        tip2_title: "2. Baasaboorka",
+        tip2_desc: "Hubi in baasaboorku leeyahay ugu yaraan 6 bilood oo shaqaynaya.",
+        tip3_title: "3. Miisaanka Shanta",
+        tip3_desc: "Miisaanka shanta ah wuu kala duwan yahay ka eeg Telegram.",
+        cult1_title: "🇪🇹 Dhaqanka Magaalooyinka Taariikhiga",
+        cult1_desc: "Xiro dharka asturan marka aad booqanayso goobaha diini ah.",
+        cult2_title: "🇦🇪 Shuruucda Dubai",
+        cult2_desc: "Dhowr shuruucda iyo dhaqanka magaalada.",
+        pack_title: "📋 Liiska Kontroolka Alaabta",
+        pack_item1: "Baasaboorka Asalka ah & Tikitka",
+        pack_item2: "Kaarka Talaalka Yellow Fever",
+        pack_item3: "Adapter-ka Charger-ka",
+        pack_item4: "Dawooyinka Dhakhtarku Qoray",
+        pack_item5: "Lambarada Gurmadka & Cash",
+        pack_item6: "Dharka Qarta",
+        facts_section_title: "Cajaaiibta Dunida & Xaqiiqooyinka Taariikhda",
+        facts_section_subtitle: "Baro sheekooyinka xiisaha leh ee goobaha aad u safrayso.",
+        fact_lani_title: "Lalibela: Kaniisadaha Dhagaxda Shidanta",
+        fact_lani_desc: "11 kaniisadood oo lagu qoray dhagax un qarnigii 12-aad.",
+        fact_danakil_title: "Danakil & Volcano Erta Ale",
+        fact_danakil_desc: "Magaalada ugu kulul dhulka oo leh haro ah gubtay active ah.",
+        fact_dubai_title: "Dubai: Burj Khalifa",
+        fact_dubai_desc: "Dhismaha ugu dheer dunida (828 meter) ee magaalo luxury ah.",
+        fact_paris_title: "Paris: Magaalada Iftiinka",
+        fact_paris_desc: "Magaaladii ugu horreysay Europe ee isticmaashay nalalka gaaska laamiga.",
+        contact_title: "Nala Soo Xiriir Bati Beyond Travel",
+        contact_subtitle: "Shaqaalahayagu waxay diyaar u yihiin in ay e-ticket si dhakhso ah kuugu soo diraan.",
+        lbl_address: "Ciwaanka:",
+        lbl_hotlines: "Telefoonada:",
+        lbl_tg_desk: "Telegram Desk:",
+        lbl_hours: "Sacadaha Shaqada:",
+        lbl_follow_us: "Social Media-yada:",
+        form_heading: "Fariinta Direct Telegram",
+        btn_send_tg: "U Dir Telegram Desk",
+        footer_copy: "© 2026 Bati Beyond Travel Agency. Dhammaan Xuquuqaha Waa La Dhowray."
+      }
+    };
+
+    const domesticAirports = [
+      "Lalibela (LLI)",
+      "Bahir Dar (BJR)",
+      "Gondar (GDQ)",
+      "Dire Dawa (DIR)",
+      "Mekelle (MQX)",
+      "Arba Minch (AMH)",
+      "Hawassa (HWA)",
+      "Semera (SZE)",
+      "Jijiga (JIJ)"
+    ];
+
+    const intAirports = [
+      "Dubai (DXB)",
+      "Doha (DOH)",
+      "Jeddah (JED)",
+      "Nairobi (NBO)",
+      "London (LHR)",
+      "Frankfurt (FRA)",
+      "Istanbul (IST)"
+    ];
+
+    function changeLanguage(langKey) {
+      if (!translations[langKey]) return;
+      const dict = translations[langKey];
+
+      document.querySelectorAll('[data-i18n]').forEach(elem => {
+        const key = elem.getAttribute('data-i18n');
+        if (dict[key]) {
+          elem.textContent = dict[key];
+        }
+      });
+
+      localStorage.setItem('selectedLang', langKey);
+    }
+
+    function toggleTripType() {
+      const isRoundTrip = document.querySelector('input[name="tripType"]:checked').value === 'roundtrip';
+      const returnContainer = document.getElementById('returnDateContainer');
+      const returnInput = document.getElementById('returnDate');
+
+      if (isRoundTrip) {
+        returnContainer.classList.remove('hidden');
+        returnInput.required = true;
+      } else {
+        returnContainer.classList.add('hidden');
+        returnInput.required = false;
+      }
+    }
+
+    function toggleRouteCategory() {
+      const type = document.getElementById('flightType').value;
+      const destSelect = document.getElementById('destCity');
+      destSelect.innerHTML = '';
+
+      const list = (type === 'domestic') ? domesticAirports : intAirports;
+      list.forEach(city => {
+        const opt = document.createElement('option');
+        opt.value = city;
+        opt.textContent = city;
+        destSelect.appendChild(opt);
+      });
+    }
+
+    function updatePassengerSummary() {
+      const adults = document.getElementById('adultCount').value;
+      const children = document.getElementById('childCount').value;
+      const infants = document.getElementById('infantCount').value;
+      
+      const display = document.getElementById('passengerSummaryDisplay');
+      display.textContent = `${adults} Adult(s), ${children} Child(ren), ${infants} Infant(s)`;
+    }
+
+    function handleFlightSearch(e) {
+      e.preventDefault();
+      const tripType = document.querySelector('input[name="tripType"]:checked').value;
+      const category = document.getElementById('flightType').value;
+      const origin = document.getElementById('originCity').value;
+      const dest = document.getElementById('destCity').value;
+      const date = document.getElementById('flightDate').value;
+      const returnDate = document.getElementById('returnDate').value;
+
+      const adults = document.getElementById('adultCount').value;
+      const children = document.getElementById('childCount').value;
+      const infants = document.getElementById('infantCount').value;
+
+      let text = `✈️ *Flight Booking Inquiry - Bati Beyond Travel*%0A` +
+                 `--------------------------------%0A` +
+                 `• *Trip Type:* ${tripType.toUpperCase()}%0A` +
+                 `• *Category:* ${category.toUpperCase()}%0A` +
+                 `• *Route:* ${origin} ➔ ${dest}%0A` +
+                 `• *Departure Date:* ${date}%0A`;
+
+      if (tripType === 'roundtrip' && returnDate) {
+        text += `• *Return Date:* ${returnDate}%0A`;
+      }
+
+      text += `• *Passengers:* ${adults} Adult(s), ${children} Child(ren), ${infants} Infant(s)%0A%0A` +
+              `Hello! Please quote me current live seat availability and best fares in ETB.`;
+
+      window.open(`https://t.me/${TELEGRAM_USERNAME}?text=${text}`, '_blank');
+    }
+
+    function quickTelegramInquiry(type, origin, dest) {
+      const today = new Date().toISOString().split('T')[0];
+      const text = `✈️ *Quick Route Inquiry*%0A` +
+                   `--------------------------------%0A` +
+                   `• *Category:* ${type}%0A` +
+                   `• *Route:* ${origin} ➔ ${dest}%0A` +
+                   `• *Date:* Near ${today}%0A%0A` +
+                   `Hello! Please quote me current available real-time rates in ETB for this route.`;
+
+      window.open(`https://t.me/${TELEGRAM_USERNAME}?text=${text}`, '_blank');
+    }
+
+    function sendCustomTelegramMsg() {
+      const name = document.getElementById('custName').value;
+      const phone = document.getElementById('custPhone').value;
+      const notes = document.getElementById('custNotes').value;
+
+      if (!name || !notes) {
+        alert("Please provide your full name and message details.");
+        return;
+      }
+
+      const text = `📩 *Direct Message from Website*%0A` +
+                   `--------------------------------%0A` +
+                   `• *Name:* ${name}%0A` +
+                   `• *Phone:* ${phone || 'Not provided'}%0A` +
+                   `• *Inquiry:* ${notes}`;
+
+      window.open(`https://t.me/${TELEGRAM_USERNAME}?text=${text}`, '_blank');
+    }
+
+    // Time Zone Converter Engine
+    function convertTime() {
+      const now = new Date();
+      // Addis Ababa is UTC+3
+      const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+      const addisDate = new Date(utc + (3600000 * 3));
+
+      // Display Addis Time
+      document.getElementById('addisLiveTime').textContent = addisDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+      // Selected Target Offset
+      const targetSelect = document.getElementById('destCityTime');
+      const targetOffset = parseFloat(targetSelect.value);
+      const targetCityName = targetSelect.options[targetSelect.selectedIndex].text;
+
+      const destDate = new Date(utc + (3600000 * targetOffset));
+      
+      document.getElementById('destCityName').textContent = targetCityName.split(' (')[0];
+      document.getElementById('destTimeOffset').textContent = `GMT${targetOffset >= 0 ? '+' + targetOffset : targetOffset}`;
+      document.getElementById('destLiveTime').textContent = destDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+      const diff = targetOffset - 3;
+      const badge = document.getElementById('timeDiffBadge');
+      if (diff === 0) {
+        badge.textContent = "Same time zone as Addis Ababa";
+      } else if (diff > 0) {
+        badge.textContent = `+${diff} hour(s) ahead of Addis Ababa`;
+      } else {
+        badge.textContent = `${diff} hour(s) behind Addis Ababa`;
+      }
+    }
+
+    // Insights Tab Switcher
+    function switchInsightTab(tabKey) {
+      ['tips', 'culture', 'packing'].forEach(key => {
+        const content = document.getElementById(`content-${key}`);
+        const btn = document.getElementById(`tab-${key}`);
+        if (key === tabKey) {
+          content.classList.remove('hidden');
+          btn.classList.add('active', 'bg-brandGreen', 'text-white');
+          btn.classList.remove('bg-white', 'text-gray-700');
+        } else {
+          content.classList.add('hidden');
+          btn.classList.remove('active', 'bg-brandGreen', 'text-white');
+          btn.classList.add('bg-white', 'text-gray-700');
+        }
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      toggleRouteCategory();
+      toggleTripType();
+      updatePassengerSummary();
+
+      const today = new Date().toISOString().split('T')[0];
+      const dateInput = document.getElementById('flightDate');
+      dateInput.min = today;
+      dateInput.value = today;
+
+      const returnInput = document.getElementById('returnDate');
+      returnInput.min = today;
+
+      // Initialize live clocks
+      convertTime();
+      setInterval(convertTime, 1000);
+
+      // Restore saved language preference
+      const savedLang = localStorage.getItem('selectedLang') || 'en';
+      document.getElementById('languageSelect').value = savedLang;
+      changeLanguage(savedLang);
+    });
+  </script>
+</body>
+</html>
